@@ -7,6 +7,8 @@
 
 
 class MessageDispatcher {
+public:
+    void dispatch();
 };
 
 

@@ -28,7 +28,6 @@ public:
 
 private:
     void do_read();
-    void on_read(const boost::system::error_code& ec, std::size_t length);
 
     void do_write();
 
@@ -42,6 +41,7 @@ private:
 
     std::deque<std::vector<char>> write_queue_;
 
+    void parse_packet();
     bool closed_ = false;
 
 
