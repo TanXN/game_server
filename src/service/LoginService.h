@@ -9,6 +9,8 @@
 #include <string>
 #include <atomic>
 
+#include "ConnectionManager.h"
+
 class session;
 class playerManager;
 
@@ -30,6 +32,7 @@ private:
         const std::string& reason);
 
     PlayerManager& player_manager_;
+    ConnectionManager& connection_manager_;
 
     std::atomic<int> next_player_id_{10000};
 

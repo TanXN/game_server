@@ -11,7 +11,7 @@
 #include "proto/message.pb.h"
 
 ClientSimulator::ClientSimulator()
-    :socket_(io_)
+    :socket_(io_), timer_(io_)
 {
     auto resolver = boost::asio::ip::tcp::resolver(io_);
     auto endpoints = resolver.resolve("127.0.0.1", "9000");
@@ -158,6 +158,22 @@ void ClientSimulator::start() {
     do_read();
     io_.run();
 
-
+    send_heartbeat();
 }
 
+
+void ClientSimulator::send_heartbeat() {
+    game_server::HeartbeatReq req;
+    auto now = std::chrono::system_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
+    auto mills = duration.count();
+    req.set_client_time_ms(mills);
+
+    Message msg;
+    msg.msg_id = MessageId::HeartbeatReq;
+    req.SerializeToString(&msg.body);
+
+    auto packet  = MessageCodec::encode(msg);
+
+    socket_.write_some(boost::asio::buffer(packet));
+}

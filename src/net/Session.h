@@ -33,6 +33,8 @@ public:
 
     void set_callback(Callback callback);
 
+    void update_last_active_time(std::chrono::steady_clock::time_point time);
+
 private:
     void do_read();
 
@@ -47,6 +49,7 @@ private:
     std::vector<char> recv_buffer_;
 
     std::deque<std::vector<char>> write_queue_;
+    std::chrono::steady_clock::time_point last_active_time_;
 
     void parse_packet();
     bool closed_ = false;

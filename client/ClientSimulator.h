@@ -31,7 +31,7 @@ public:
 private:
     void try_parse();
     void handle_message(Message &msg);
-
+    void send_heartbeat();
 
 
     boost::asio::io_context io_;
@@ -43,6 +43,8 @@ private:
 
     std::array<char, 4096> read_buffer_{};
     std::vector<char> recv_buffer_;
+
+    boost::asio::steady_timer timer_;
 };
 
 

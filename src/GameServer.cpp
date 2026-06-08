@@ -8,6 +8,7 @@
 #include "net/MessageId.h"
 #include "service/LoginService.h"
 #include "room/RoomManager.h"
+#include "service/HeartbeatService.h"
 
 GameServer::GameServer()
     :acceptor_(io_, tcp::endpoint(tcp::v4(), 9000)),
@@ -35,7 +36,10 @@ void GameServer::start() {
         [this](const std::shared_ptr<Session> &session, const Message& message) {
             chat_service_.handle_chat(session, message);
         });
-
+    dispatcher_.register_handler(MessageId::HeartbeatReq,
+        [this](const std::shared_ptr<Session> &session, const Message& message) {
+            heartbeat_service_.handle_heartbeat(session, message);
+        });
 
     std::cout << "server listen on port 9000" << std::endl;
     do_accept(acceptor_, dispatcher_);
@@ -63,6 +67,8 @@ void GameServer::do_accept(tcp::acceptor &acceptor, MessageDispatcher &dispatche
 
             // Room
             room_manager_.remove_player(session->player_id());
+
+            connection_manager_.remove_session(session);
         });
 
         session->start();

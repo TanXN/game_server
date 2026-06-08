@@ -114,3 +114,7 @@ int Session::player_id() const {
 void Session::set_callback(Callback callback) {
     callback_ = std::move(callback);
 }
+
+void Session::update_last_active_time(std::chrono::steady_clock::time_point time) {
+    last_active_time_ = time;
+}

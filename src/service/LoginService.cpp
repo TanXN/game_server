@@ -59,6 +59,8 @@ void LoginService::handle_login(std::shared_ptr<Session> session, const Message 
     int player_id = generate_player_id();
     session->set_player_id(player_id);
     player_manager_.add_player(player_id, session);
+    connection_manager_.add_session(session);
+
     std::cout << "[login] login success, player_id: " << player_id << "\n";
     send_login_success(session, player_id);
 }

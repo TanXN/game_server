@@ -52,3 +52,12 @@ message ChatResp {
     string message = 2;
 }
 
+
+message HeartbeatReq {
+    int64 client_time_ms = 1;
+}
+
+message HeartbeatResp {
+    int64 client_time_ms = 1;
+    int64 server_time_ms = 2;
+}

@@ -8,11 +8,13 @@
 
 #include <boost/asio.hpp>
 
+#include "ConnectionManager.h"
 #include "player/PlayerManager.h"
 #include "match/MatchQueue.h"
 #include "net/MessageDispatcher.h"
 #include "room/RoomManager.h"
 #include "service/ChatService.h"
+#include "service/HeartbeatService.h"
 
 #include "service/LoginService.h"
 #include "service/MatchService.h"
@@ -37,10 +39,12 @@ private:
     RoomManager room_manager_;
     MatchQueue match_queue_;
     MessageDispatcher dispatcher_;
+    ConnectionManager connection_manager_;
 
     LoginService login_service_;
     MatchService match_service_;
     ChatService chat_service_;
+    HeartbeatService heartbeat_service_;
 
     boost::asio::steady_timer timer_;
     boost::asio::steady_timer print_timer_;
