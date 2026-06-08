@@ -14,7 +14,9 @@ GameServer::GameServer()
     room_manager_(player_manager_),
     login_service_(player_manager_),
     match_service_(match_queue_, room_manager_),
-    chat_service_(room_manager_)
+    chat_service_(room_manager_),
+    timer_(io_),
+    print_timer_(io_)
 {
 
 }
@@ -37,6 +39,8 @@ void GameServer::start() {
 
     std::cout << "server listen on port 9000" << std::endl;
     do_accept(acceptor_, dispatcher_);
+    start_tick();
+    print_stat();
     io_.run();
 
 }
@@ -67,4 +71,31 @@ void GameServer::do_accept(tcp::acceptor &acceptor, MessageDispatcher &dispatche
     });
 }
 
+void GameServer::start_tick() {
+    timer_.expires_after(std::chrono::milliseconds(100));
 
+    timer_.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            return ;
+        }
+
+        room_manager_.tick_all();
+        start_tick();
+    });
+
+}
+
+void GameServer::print_stat() {
+    print_timer_.expires_after(std::chrono::milliseconds(1000));
+
+    print_timer_.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            return ;
+        }
+        std::cout << "[ServerStats] online=" << player_manager_.online_count()
+        << " match_queue=" << match_queue_.size() << " room=" << room_manager_.room_count() << std::endl;
+
+        print_stat();
+    });
+
+}

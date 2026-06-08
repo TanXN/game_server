@@ -32,15 +32,8 @@ void ChatService::handle_chat(std::shared_ptr<Session> session, const Message &m
     int player_id = session->player_id();
 
     auto room = room_manager_.get_room(room_id);
+    room->handle_chat(player_id, text);
 
-    Message chat_msg;
-    chat_msg.msg_id = MessageId::ChatNotify;
-    game_server::ChatNotify notify;
-    notify.set_roomid(room_id);
-    notify.set_playerid(player_id);
-    notify.set_text(text);
-    notify.SerializeToString(&chat_msg.body);
-    room->broadcast(chat_msg);
 
 }
 

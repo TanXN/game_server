@@ -26,8 +26,9 @@ public:
     GameServer();
 
 private:
+    void start_tick();
     void do_accept(tcp::acceptor& acceptor, MessageDispatcher& dispatcher);
-
+    void print_stat();
 
     boost::asio::io_context io_;
     tcp::acceptor acceptor_;
@@ -40,6 +41,9 @@ private:
     LoginService login_service_;
     MatchService match_service_;
     ChatService chat_service_;
+
+    boost::asio::steady_timer timer_;
+    boost::asio::steady_timer print_timer_;
 };
 
 

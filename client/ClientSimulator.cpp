@@ -31,7 +31,7 @@ void ClientSimulator::login() {
 
     boost::asio::write(socket_, boost::asio::buffer(packet));
     std::cout << "send msg_id=" << msg.msg_id
-          << " body=" << msg.body
+          << " body_size=" << msg.body.size()
           << std::endl;
 }
 
@@ -50,7 +50,7 @@ void ClientSimulator::match() {
 
     boost::asio::write(socket_, boost::asio::buffer(packet));
     std::cout << "send match request msg_id=" << msg.msg_id
-          << " body=" << msg.body
+          << " body_size=" << msg.body.size()
           << std::endl;
 }
 
@@ -116,7 +116,7 @@ void ClientSimulator::try_parse() {
         if (MessageCodec::try_decode(recv_buffer_, msg, &error_msg) != MessageCodec::DecodeStatus::Success) {
             break;
         }
-        std::cout << "received packet msg_id=" << msg.msg_id << " body=" << msg.body << std::endl;
+        std::cout << "received packet msg_id=" << msg.msg_id << " body_size=" << msg.body.size() << std::endl;
         handle_message(msg);
 
     }

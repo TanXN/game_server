@@ -37,6 +37,8 @@ private:
     std::vector<int> player_ids_;
     PlayerManager& player_manager_;
 
+
+    int tick_count_;
 };
 
 

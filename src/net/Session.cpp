@@ -13,7 +13,7 @@ void Session::do_read() {
             [self, this](boost::system::error_code ec, std::size_t length) {
                 if (ec) {
                     if (ec == boost::asio::error::eof) {
-                        std::cout << "client disconnectec" << std::endl;
+                        std::cout << "[disconnect] player_id=" << player_id_ << std::endl;
                         close();
                         return ;
                     }
@@ -81,7 +81,7 @@ void Session::close() {
     socket_.shutdown(boost::asio::socket_base::shutdown_both, ec);
     socket_.close();
 
-    std::cout << "session closed" << std::endl;
+    std::cout << "[session] closed player_id=" << player_id_ << std::endl;
 
     if (callback_) {
         callback_(shared_from_this());

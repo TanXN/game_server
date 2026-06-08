@@ -17,7 +17,12 @@ void RoomManager::remove_player(int player_id) {
     auto room = get_room(roomId);
     room->remove_player(player_id);
     player_room_map_.erase(player_id);
-
+    std::cout << "[room] remove player_id=" << player_id
+    << " room_id=" << roomId << std::endl;
+    if (room->player_count() == 0) {
+        rooms_.erase(roomId);
+        std::cout << "[room] remove empty room:" << roomId << std::endl;
+    }
     return ;
 }
 
