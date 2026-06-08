@@ -2,12 +2,27 @@ cmake_minimum_required(VERSION 3.28)
 project(game_server)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf REQUIRED)
 
 add_executable(game_server
         src/main.cpp
+        src/net/Session.cpp
+        src/net/MessageDispatcher.cpp
+        src/net/MessageCodec.cpp
+        generated/proto/message.pb.cc
+        src/GameServer.cpp
+        src/match/MatchQueue.cpp
+        src/service/MatchService.cpp
+        src/service/LoginService.cpp
+        src/player/PlayerManager.cpp
+        src/service/MatchService.cpp
+        src/room/RoomManager.cpp
+        src/room/Room.cpp
+        src/service/ChatService.cpp
 )
 
 target_include_directories(
@@ -15,6 +30,7 @@ target_include_directories(
         PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/net
+        ${CMAKE_SOURCE_DIR}/generated
 
 )
 
@@ -30,10 +46,21 @@ target_link_libraries(
 add_executable(
         game_client
         client/main.cpp
-        src/GameServer.cpp
-        src/GameServer.cpp
+        src/net/Session.cpp
+        src/net/MessageCodec.cpp
+        src/net/MessageDispatcher.cpp
+        generated/proto/message.pb.cc
+        client/ClientSimulator.cpp
+
 )
 
+target_include_directories(
+        game_client
+        PRIVATE
+        src/net
+        src/
+        generated/
+)
 target_link_libraries(
         game_client
         PRIVATE

@@ -4,19 +4,27 @@
 
 #ifndef GAME_SERVER_PLAYERMANAGER_H
 #define GAME_SERVER_PLAYERMANAGER_H
-#include "net/Session.h"
 
+#include "../net/Session.h"
+#include <mutex>
+
+
+class Session;
 
 class PlayerManager {
 public:
+
     void add_player(int player_id, std::shared_ptr<Session> session);
     void remove_player(int player_id);
 
     std::shared_ptr<Session> get_session(int player_id);
     bool is_online(int player_id) const;
 
+    std::size_t online_count() const;
+
 private:
     std::unordered_map<int, std::weak_ptr<Session>> players_;
+    mutable std::mutex mutex_;
 };
 
 

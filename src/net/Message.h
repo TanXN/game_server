@@ -5,6 +5,8 @@
 #ifndef GAME_SERVER_MESSAGE_H
 #define GAME_SERVER_MESSAGE_H
 
+#include <cstdint>
+#include <string>
 
 struct Message {
     uint16_t msg_id = 0;

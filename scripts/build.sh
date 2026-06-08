@@ -1,0 +1,1 @@
+protoc person.proto --cpp_out=./generated

@@ -9,14 +9,19 @@
 #include <deque>
 #include <boost/asio.hpp>
 
+#include "Message.h"
 #include "MessageDispatcher.h"
-#include "net/Message.h"
+
+
 using boost::asio::ip::tcp;
 
 
 
 class Session : public std::enable_shared_from_this<Session> {
 public:
+
+    using Callback = std::function<void(std::shared_ptr<Session>)>;
+
     Session(tcp::socket socket, MessageDispatcher& dispatcher);
 
     void start();
@@ -24,7 +29,9 @@ public:
     void close();
 
     int player_id() const;
-    void ser_player_id(int player_id);
+    void set_player_id(int player_id);
+
+    void set_callback(Callback callback);
 
 private:
     void do_read();
@@ -44,7 +51,7 @@ private:
     void parse_packet();
     bool closed_ = false;
 
-
+    Callback callback_;
 
 };
 

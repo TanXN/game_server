@@ -12,6 +12,10 @@
 #include "match/MatchQueue.h"
 #include "net/MessageDispatcher.h"
 #include "room/RoomManager.h"
+#include "service/ChatService.h"
+
+#include "service/LoginService.h"
+#include "service/MatchService.h"
 
 using boost::asio::ip::tcp;
 
@@ -19,15 +23,23 @@ class GameServer {
 public:
     void start();
     void stop();
+    GameServer();
 
 private:
+    void do_accept(tcp::acceptor& acceptor, MessageDispatcher& dispatcher);
+
+
     boost::asio::io_context io_;
     tcp::acceptor acceptor_;
 
     PlayerManager player_manager_;
     RoomManager room_manager_;
-    MatchQueue match_qeueue_;
-    MessageDispatcher dispacher_;
+    MatchQueue match_queue_;
+    MessageDispatcher dispatcher_;
+
+    LoginService login_service_;
+    MatchService match_service_;
+    ChatService chat_service_;
 };
 
 

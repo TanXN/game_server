@@ -5,18 +5,23 @@
 #ifndef GAME_SERVER_MESSAGEID_H
 #define GAME_SERVER_MESSAGEID_H
 
-enum class MessageId {
-    LoginReq = 1001,
-    LoginResp = 1002,
+#include <cstdint>
 
-    MatchReq = 2001,
-    MatchResp = 2002,
+class MessageId {
+public:
+    static constexpr uint16_t LoginReq = 1001;
+    static constexpr uint16_t LoginResp = 1002;
 
-    RoomCreatedNotify = 3001,
-    ChatReq = 4001,
-    ChatNotify = 4002,
+    static constexpr uint16_t MatchReq = 2001;
+    static constexpr uint16_t MatchResp = 2002;
 
-    HeartbeatReq = 9001,
-    HeartbeatResp = 9002,
+    static constexpr uint16_t RoomCreatedNotify = 3001;
+
+    static constexpr uint16_t ChatReq = 4001;
+    static constexpr uint16_t ChatNotify = 4002;
+    static constexpr uint16_t ChatResp = 4003;
+
+    static constexpr uint16_t HeartbeatReq = 9001;
+    static constexpr uint16_t HeartbeatResp = 9002;
 };
 #endif //GAME_SERVER_MESSAGEID_H
