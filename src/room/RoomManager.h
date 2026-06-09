@@ -35,8 +35,9 @@ public:
 
     void tick_all();
 
-    void mark_displayer_disconnected(int player_id);
+    void mark_player_disconnected(int player_id);
 
+    void mark_player_reconnected(int player_id);
 private:
     int generate_room_id();
 

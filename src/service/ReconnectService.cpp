@@ -11,10 +11,12 @@
 
 ReconnectService::ReconnectService(PlayerManager &player_manager,
                                    RoomManager &room_manager,
-                                   PlayerStateManager &player_state_manager)
+                                   PlayerStateManager &player_state_manager,
+                                   ConnectionManager &connection_manager)
         :player_manager_(player_manager),
         room_manager_(room_manager),
-        player_state_manager_(player_state_manager)
+        player_state_manager_(player_state_manager),
+        connection_manager_(connection_manager)
 {
 
 }
@@ -67,6 +69,15 @@ void ReconnectService::handle_reconnect(std::shared_ptr<Session> session, const 
         send_reconnect_failed(session, reason);
         return ;
     }
+
+    state->conn_state = PlayerConnState::Online;
+    session->set_player_id(player_id);
+    session->set_token(token);
+
+    player_manager_.add_player(player_id, session);
+    connection_manager_.add_session(session);
+    room_manager_.mark_player_reconnected(player_id);
+
 
     send_reconnect_success(session, player_id, state->room_id);
     std::cout << "[reconnect] player_id=" << player_id

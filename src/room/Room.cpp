@@ -11,8 +11,15 @@
 #include "proto/message.pb.h"
 
 Room::Room(int room_id, std::vector<int> player_ids, PlayerManager& player_manager)
-    :room_id_(room_id), player_ids_(player_ids), player_manager_(player_manager)
-{}
+    :room_id_(room_id), player_ids_(player_ids), player_manager_(player_manager) {
+    for (auto player_id : player_ids_) {
+        PlayerRuntimeState state;
+        state.player_id = player_id;
+        state.room_id = room_id;
+        state.conn_state = PlayerConnState::Online;
+        player_states_.insert({player_id, state});
+    }
+}
 
 void Room::add_player(int player_id) {
     player_ids_.emplace_back(player_id);

@@ -48,7 +48,7 @@ private:
     PlayerManager& player_manager_;
 
 
-    int tick_count_;
+    int tick_count_ = 0;
 };
 
 

@@ -114,6 +114,7 @@ void ClientSimulator::handle_message(Message& msg) {
             resp.ParseFromString(msg.body);
             std::cout << "[reconnect] player_id=" << resp.player_id()
             << " code=" << resp.code()
+            << " room_id=" << resp.room_id()
             << " message=" << resp.message()
             << std::endl;
 
@@ -278,7 +279,7 @@ void ClientSimulator::test_reconnect() {
     });
 
     auto reconnect_timer = boost::asio::steady_timer(io_);
-    reconnect_timer.expires_after(std::chrono::seconds(25));
+    reconnect_timer.expires_after(std::chrono::seconds(30));
     reconnect_timer.async_wait([this](boost::system::error_code ec) {
         if (ec) {
             std::cout << "reconnect_timer error : " << ec.message() << std::endl;

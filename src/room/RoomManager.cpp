@@ -91,6 +91,7 @@ int RoomManager::create_room(const std::vector<int> &player_ids) {
     Room room(room_id, player_ids, player_manager_);
 
     rooms_.insert({room_id, std::make_shared<Room>(room)});
+
     for (auto player_id : player_ids) {
         player_room_map_.insert({player_id, room_id});
     }
@@ -112,9 +113,16 @@ int RoomManager::create_room(const std::vector<int> &player_ids) {
     return room_id;
 }
 
-void RoomManager::mark_displayer_disconnected(int player_id) {
+void RoomManager::mark_player_disconnected(int player_id) {
     if (player_room_map_.find(player_id) != player_room_map_.end()) {
         auto room = rooms_[player_room_map_[player_id]];
         room->mark_player_disconnected(player_id);
+    }
+}
+
+void RoomManager::mark_player_reconnected(int player_id) {
+    if (player_room_map_.find(player_id) != player_room_map_.end()) {
+        auto room = rooms_[player_room_map_[player_id]];
+        room->mark_player_online(player_id);
     }
 }

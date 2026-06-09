@@ -7,6 +7,7 @@
 #include <memory>
 #include <google/protobuf/message.h>
 
+#include "ConnectionManager.h"
 #include "Session.h"
 #include "player/PlayerManager.h"
 #include "player/PlayerStateManager.h"
@@ -17,7 +18,8 @@ class ReconnectService {
 public:
     ReconnectService(PlayerManager& player_manager,
                     RoomManager& room_manager,
-                    PlayerStateManager& player_state_manager);
+                    PlayerStateManager& player_state_manager,
+                    ConnectionManager& connection_manager);
 
     void handle_reconnect(std::shared_ptr<Session> session, const Message& message);
 
@@ -31,6 +33,7 @@ private:
     PlayerManager& player_manager_;
     RoomManager& room_manager_;
     PlayerStateManager& player_state_manager_;
+    ConnectionManager& connection_manager_;
 };
 
 

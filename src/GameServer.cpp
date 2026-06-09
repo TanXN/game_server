@@ -16,7 +16,7 @@ GameServer::GameServer()
     login_service_(player_manager_, connection_manager_, player_state_manager_),
     match_service_(match_queue_, room_manager_),
     chat_service_(room_manager_),
-    reconnect_service_(player_manager_, room_manager_, player_state_manager_),
+    reconnect_service_(player_manager_, room_manager_, player_state_manager_, connection_manager_),
     timer_(io_),
     print_timer_(io_),
     heartbeat_timer_(io_),
@@ -110,7 +110,7 @@ void GameServer::do_accept(tcp::acceptor &acceptor, MessageDispatcher &dispatche
             player_state_manager_.save_online(session->player_id(), room_manager_.get_room_id_by_player(session->player_id()), session->get_token());
             player_state_manager_.mark_disconnected(session->player_id());
 
-            room_manager_.mark_displayer_disconnected(session->player_id());
+            room_manager_.mark_player_disconnected(session->player_id());
             // room_manager_.remove_player(session->player_id());
 
         });

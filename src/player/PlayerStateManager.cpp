@@ -18,8 +18,6 @@ std::vector<int> PlayerStateManager::get_reconnect_timeout_players(std::chrono::
     for (auto it : states_) {
         if (it.second.conn_state == PlayerConnState::Offline) {
             auto duration_sec = std::chrono::duration_cast<std::chrono::seconds>(now - it.second.disconnected_time);
-            std::cout << duration_sec.count() << std::endl;
-            std::cout << it.second.player_id << std::endl;
             if (duration_sec > timeout) {
                 players.push_back(it.first);
             }
@@ -38,6 +36,7 @@ std::optional<PlayerRuntimeState> PlayerStateManager::get_state(int player_id) c
 void PlayerStateManager::mark_disconnected(int player_id) {
     if (states_.contains(player_id)) {
         states_[player_id].conn_state = PlayerConnState::Offline;
+        states_[player_id].disconnected_time = std::chrono::steady_clock::now();
     }
 }
 
