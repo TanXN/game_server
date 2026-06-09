@@ -8,6 +8,7 @@
 #include "net/Message.h"
 #include <vector>
 #include "player/PlayerManager.h"
+#include "player/PlayerRuntimeState.h"
 
 class Room {
 public:
@@ -32,9 +33,18 @@ public:
 
     std::size_t player_count() const;
 
+    void mark_player_disconnected(int player_id);
+
+    void mark_player_online(int player_id);
+
+    bool is_player_disconnected(int player_id) const;
+
 private:
     int room_id_;
     std::vector<int> player_ids_;
+
+    std::unordered_map<int, PlayerRuntimeState> player_states_;
+
     PlayerManager& player_manager_;
 
 

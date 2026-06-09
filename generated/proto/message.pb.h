@@ -78,6 +78,12 @@ extern MatchReqDefaultTypeInternal _MatchReq_default_instance_;
 class MatchResp;
 struct MatchRespDefaultTypeInternal;
 extern MatchRespDefaultTypeInternal _MatchResp_default_instance_;
+class ReconnectReq;
+struct ReconnectReqDefaultTypeInternal;
+extern ReconnectReqDefaultTypeInternal _ReconnectReq_default_instance_;
+class ReconnectResp;
+struct ReconnectRespDefaultTypeInternal;
+extern ReconnectRespDefaultTypeInternal _ReconnectResp_default_instance_;
 class RoomCreatedNotify;
 struct RoomCreatedNotifyDefaultTypeInternal;
 extern RoomCreatedNotifyDefaultTypeInternal _RoomCreatedNotify_default_instance_;
@@ -94,6 +100,8 @@ template<> ::game_server::MatchCancelReq* Arena::CreateMaybeMessage<::game_serve
 template<> ::game_server::MatchCancelResp* Arena::CreateMaybeMessage<::game_server::MatchCancelResp>(Arena*);
 template<> ::game_server::MatchReq* Arena::CreateMaybeMessage<::game_server::MatchReq>(Arena*);
 template<> ::game_server::MatchResp* Arena::CreateMaybeMessage<::game_server::MatchResp>(Arena*);
+template<> ::game_server::ReconnectReq* Arena::CreateMaybeMessage<::game_server::ReconnectReq>(Arena*);
+template<> ::game_server::ReconnectResp* Arena::CreateMaybeMessage<::game_server::ReconnectResp>(Arena*);
 template<> ::game_server::RoomCreatedNotify* Arena::CreateMaybeMessage<::game_server::RoomCreatedNotify>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace game_server {
@@ -375,6 +383,7 @@ class LoginResp final :
 
   enum : int {
     kMessageFieldNumber = 3,
+    kTokenFieldNumber = 4,
     kCodeFieldNumber = 1,
     kPlayerIdFieldNumber = 2,
   };
@@ -390,6 +399,20 @@ class LoginResp final :
   const std::string& _internal_message() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
   std::string* _internal_mutable_message();
+  public:
+
+  // string token = 4;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
   public:
 
   // int64 code = 1;
@@ -419,6 +442,7 @@ class LoginResp final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
     int64_t code_;
     int64_t playerid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2033,6 +2057,356 @@ class HeartbeatResp final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_proto_2fmessage_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ReconnectReq final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:game_server.ReconnectReq) */ {
+ public:
+  inline ReconnectReq() : ReconnectReq(nullptr) {}
+  ~ReconnectReq() override;
+  explicit PROTOBUF_CONSTEXPR ReconnectReq(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ReconnectReq(const ReconnectReq& from);
+  ReconnectReq(ReconnectReq&& from) noexcept
+    : ReconnectReq() {
+    *this = ::std::move(from);
+  }
+
+  inline ReconnectReq& operator=(const ReconnectReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReconnectReq& operator=(ReconnectReq&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ReconnectReq& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ReconnectReq* internal_default_instance() {
+    return reinterpret_cast<const ReconnectReq*>(
+               &_ReconnectReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(ReconnectReq& a, ReconnectReq& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReconnectReq* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReconnectReq* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ReconnectReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ReconnectReq>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ReconnectReq& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ReconnectReq& from) {
+    ReconnectReq::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReconnectReq* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "game_server.ReconnectReq";
+  }
+  protected:
+  explicit ReconnectReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTokenFieldNumber = 2,
+    kPlayerIdFieldNumber = 1,
+  };
+  // string token = 2;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // int64 player_id = 1;
+  void clear_player_id();
+  int64_t player_id() const;
+  void set_player_id(int64_t value);
+  private:
+  int64_t _internal_player_id() const;
+  void _internal_set_player_id(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:game_server.ReconnectReq)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+    int64_t player_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReconnectResp final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:game_server.ReconnectResp) */ {
+ public:
+  inline ReconnectResp() : ReconnectResp(nullptr) {}
+  ~ReconnectResp() override;
+  explicit PROTOBUF_CONSTEXPR ReconnectResp(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ReconnectResp(const ReconnectResp& from);
+  ReconnectResp(ReconnectResp&& from) noexcept
+    : ReconnectResp() {
+    *this = ::std::move(from);
+  }
+
+  inline ReconnectResp& operator=(const ReconnectResp& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReconnectResp& operator=(ReconnectResp&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ReconnectResp& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ReconnectResp* internal_default_instance() {
+    return reinterpret_cast<const ReconnectResp*>(
+               &_ReconnectResp_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(ReconnectResp& a, ReconnectResp& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReconnectResp* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReconnectResp* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ReconnectResp* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ReconnectResp>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ReconnectResp& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ReconnectResp& from) {
+    ReconnectResp::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReconnectResp* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "game_server.ReconnectResp";
+  }
+  protected:
+  explicit ReconnectResp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 4,
+    kCodeFieldNumber = 1,
+    kPlayerIdFieldNumber = 2,
+    kRoomIdFieldNumber = 3,
+  };
+  // string message = 4;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // int64 code = 1;
+  void clear_code();
+  int64_t code() const;
+  void set_code(int64_t value);
+  private:
+  int64_t _internal_code() const;
+  void _internal_set_code(int64_t value);
+  public:
+
+  // int32 player_id = 2;
+  void clear_player_id();
+  int32_t player_id() const;
+  void set_player_id(int32_t value);
+  private:
+  int32_t _internal_player_id() const;
+  void _internal_set_player_id(int32_t value);
+  public:
+
+  // int32 room_id = 3;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
+  private:
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:game_server.ReconnectResp)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    int64_t code_;
+    int32_t player_id_;
+    int32_t room_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fmessage_2eproto;
+};
 // ===================================================================
 
 
@@ -2186,6 +2560,56 @@ inline void LoginResp::set_allocated_message(std::string* message) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:game_server.LoginResp.message)
+}
+
+// string token = 4;
+inline void LoginResp::clear_token() {
+  _impl_.token_.ClearToEmpty();
+}
+inline const std::string& LoginResp::token() const {
+  // @@protoc_insertion_point(field_get:game_server.LoginResp.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void LoginResp::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:game_server.LoginResp.token)
+}
+inline std::string* LoginResp::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:game_server.LoginResp.token)
+  return _s;
+}
+inline const std::string& LoginResp::_internal_token() const {
+  return _impl_.token_.Get();
+}
+inline void LoginResp::_internal_set_token(const std::string& value) {
+  
+  _impl_.token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* LoginResp::_internal_mutable_token() {
+  
+  return _impl_.token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* LoginResp::release_token() {
+  // @@protoc_insertion_point(field_release:game_server.LoginResp.token)
+  return _impl_.token_.Release();
+}
+inline void LoginResp::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.token_.SetAllocated(token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.token_.IsDefault()) {
+    _impl_.token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:game_server.LoginResp.token)
 }
 
 // -------------------------------------------------------------------
@@ -2765,9 +3189,201 @@ inline void HeartbeatResp::set_server_time_ms(int64_t value) {
   // @@protoc_insertion_point(field_set:game_server.HeartbeatResp.server_time_ms)
 }
 
+// -------------------------------------------------------------------
+
+// ReconnectReq
+
+// int64 player_id = 1;
+inline void ReconnectReq::clear_player_id() {
+  _impl_.player_id_ = int64_t{0};
+}
+inline int64_t ReconnectReq::_internal_player_id() const {
+  return _impl_.player_id_;
+}
+inline int64_t ReconnectReq::player_id() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectReq.player_id)
+  return _internal_player_id();
+}
+inline void ReconnectReq::_internal_set_player_id(int64_t value) {
+  
+  _impl_.player_id_ = value;
+}
+inline void ReconnectReq::set_player_id(int64_t value) {
+  _internal_set_player_id(value);
+  // @@protoc_insertion_point(field_set:game_server.ReconnectReq.player_id)
+}
+
+// string token = 2;
+inline void ReconnectReq::clear_token() {
+  _impl_.token_.ClearToEmpty();
+}
+inline const std::string& ReconnectReq::token() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectReq.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ReconnectReq::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:game_server.ReconnectReq.token)
+}
+inline std::string* ReconnectReq::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:game_server.ReconnectReq.token)
+  return _s;
+}
+inline const std::string& ReconnectReq::_internal_token() const {
+  return _impl_.token_.Get();
+}
+inline void ReconnectReq::_internal_set_token(const std::string& value) {
+  
+  _impl_.token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ReconnectReq::_internal_mutable_token() {
+  
+  return _impl_.token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ReconnectReq::release_token() {
+  // @@protoc_insertion_point(field_release:game_server.ReconnectReq.token)
+  return _impl_.token_.Release();
+}
+inline void ReconnectReq::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.token_.SetAllocated(token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.token_.IsDefault()) {
+    _impl_.token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:game_server.ReconnectReq.token)
+}
+
+// -------------------------------------------------------------------
+
+// ReconnectResp
+
+// int64 code = 1;
+inline void ReconnectResp::clear_code() {
+  _impl_.code_ = int64_t{0};
+}
+inline int64_t ReconnectResp::_internal_code() const {
+  return _impl_.code_;
+}
+inline int64_t ReconnectResp::code() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectResp.code)
+  return _internal_code();
+}
+inline void ReconnectResp::_internal_set_code(int64_t value) {
+  
+  _impl_.code_ = value;
+}
+inline void ReconnectResp::set_code(int64_t value) {
+  _internal_set_code(value);
+  // @@protoc_insertion_point(field_set:game_server.ReconnectResp.code)
+}
+
+// int32 player_id = 2;
+inline void ReconnectResp::clear_player_id() {
+  _impl_.player_id_ = 0;
+}
+inline int32_t ReconnectResp::_internal_player_id() const {
+  return _impl_.player_id_;
+}
+inline int32_t ReconnectResp::player_id() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectResp.player_id)
+  return _internal_player_id();
+}
+inline void ReconnectResp::_internal_set_player_id(int32_t value) {
+  
+  _impl_.player_id_ = value;
+}
+inline void ReconnectResp::set_player_id(int32_t value) {
+  _internal_set_player_id(value);
+  // @@protoc_insertion_point(field_set:game_server.ReconnectResp.player_id)
+}
+
+// int32 room_id = 3;
+inline void ReconnectResp::clear_room_id() {
+  _impl_.room_id_ = 0;
+}
+inline int32_t ReconnectResp::_internal_room_id() const {
+  return _impl_.room_id_;
+}
+inline int32_t ReconnectResp::room_id() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectResp.room_id)
+  return _internal_room_id();
+}
+inline void ReconnectResp::_internal_set_room_id(int32_t value) {
+  
+  _impl_.room_id_ = value;
+}
+inline void ReconnectResp::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:game_server.ReconnectResp.room_id)
+}
+
+// string message = 4;
+inline void ReconnectResp::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& ReconnectResp::message() const {
+  // @@protoc_insertion_point(field_get:game_server.ReconnectResp.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ReconnectResp::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:game_server.ReconnectResp.message)
+}
+inline std::string* ReconnectResp::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:game_server.ReconnectResp.message)
+  return _s;
+}
+inline const std::string& ReconnectResp::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void ReconnectResp::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ReconnectResp::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ReconnectResp::release_message() {
+  // @@protoc_insertion_point(field_release:game_server.ReconnectResp.message)
+  return _impl_.message_.Release();
+}
+inline void ReconnectResp::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:game_server.ReconnectResp.message)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -61,7 +61,10 @@ void ClientSimulator::handle_message(Message& msg) {
             resp.ParseFromString(msg.body);
             if (resp.code() == 0) {
                 player_id_ = resp.playerid();
-                std::cout << "[Login] login success, player_id=" << resp.playerid() << std::endl;
+                token_ = resp.token();
+                std::cout << "[Login] login success, player_id=" << resp.playerid()
+                << " token=" << resp.token()
+                << std::endl;
                 match();
             }
             break;
@@ -97,6 +100,23 @@ void ClientSimulator::handle_message(Message& msg) {
             std::cout << "[ChatNotify] room_id=" << resp.roomid()
             << " player_id=" << resp.playerid()
             << " text=" << resp.text() << std::endl;
+            break;
+        }
+        case MessageId::HeartbeatResp: {
+            game_server::HeartbeatResp resp;
+            resp.ParseFromString(msg.body);
+            std::cout << "[heartbeat] client=" << resp.client_time_ms()
+            << " server=" << resp.server_time_ms() << std::endl;
+            break;
+        }
+        case MessageId::ReconnectResp: {
+            game_server::ReconnectResp resp;
+            resp.ParseFromString(msg.body);
+            std::cout << "[reconnect] player_id=" << resp.player_id()
+            << " code=" << resp.code()
+            << " message=" << resp.message()
+            << std::endl;
+
             break;
         }
         default: {
@@ -154,17 +174,16 @@ void ClientSimulator::chat(std::string text) {
 void ClientSimulator::start() {
 
     login();
-
+    duration_send();
     do_read();
     io_.run();
 
-    send_heartbeat();
 }
 
 
 void ClientSimulator::send_heartbeat() {
     game_server::HeartbeatReq req;
-    auto now = std::chrono::system_clock::now();
+    auto now = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
     auto mills = duration.count();
     req.set_client_time_ms(mills);
@@ -174,6 +193,103 @@ void ClientSimulator::send_heartbeat() {
     req.SerializeToString(&msg.body);
 
     auto packet  = MessageCodec::encode(msg);
-
     socket_.write_some(boost::asio::buffer(packet));
+}
+
+
+void ClientSimulator::duration_send() {
+    timer_.expires_after(std::chrono::seconds(5));
+    if (!heart_beat_enable_) {
+        return ;
+    }
+    timer_.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+         std::cout << "duration_send error : " << ec.message() << std::endl;
+         return ;
+        }
+        send_heartbeat();
+
+        duration_send();
+    });
+
+}
+
+void ClientSimulator::stop_heartbeat() {
+    heart_beat_enable_ = false;
+    boost::system::error_code ec;
+    timer_.cancel(ec);
+    std::cout << "client " << player_id_ << " stopped heartbeat" << std::endl;
+}
+
+void ClientSimulator::reconnect() {
+    std::cout << "[Reconnect] start player_id="
+              << player_id_
+              << " token="
+              << token_
+              << std::endl;
+
+    if (player_id_ == 0 || token_ == "") {
+        std::cout << "player=0 || token==''" << std::endl;
+        return ;
+    }
+    boost::system::error_code ec;
+    socket_.close(ec);
+    socket_ = tcp::socket(io_);
+    tcp::resolver resolver(io_);
+    auto endpoints = resolver.resolve("127.0.0.1", "9000");
+
+    boost::asio::connect(socket_, endpoints);
+    std::cout << "[Reconnect] connected to server again" << std::endl;
+    recv_buffer_.clear();
+
+    do_read();
+
+    game_server::ReconnectReq req;
+    req.set_player_id(player_id_);
+    req.set_token(token_);
+    Message msg;
+    msg.msg_id = MessageId::ReconnectReq;
+    req.SerializeToString(&msg.body);
+
+    auto packet = MessageCodec::encode(msg);
+
+    boost::asio::write(socket_, boost::asio::buffer(packet));
+    // send_message(MessageId::ReconnectReq, req);
+
+    heart_beat_enable_ = true;
+    duration_send();
+
+}
+
+
+void ClientSimulator::test_reconnect() {
+    login();
+    heart_beat_enable_ = false;
+    duration_send();
+
+    auto stop_heartbeat_timer = boost::asio::steady_timer(io_);
+    stop_heartbeat_timer.expires_after(std::chrono::seconds(5));
+    stop_heartbeat_timer.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            std::cout << "stop_heartbeat_timer error : " << ec.message() << std::endl;
+            return ;
+        }
+        stop_heartbeat();
+    });
+
+    auto reconnect_timer = boost::asio::steady_timer(io_);
+    reconnect_timer.expires_after(std::chrono::seconds(25));
+    reconnect_timer.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            std::cout << "reconnect_timer error : " << ec.message() << std::endl;
+            return ;
+        }
+        reconnect();
+    });
+
+    do_read();
+    io_.run();
+
+
+
 }

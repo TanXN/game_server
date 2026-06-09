@@ -4,6 +4,25 @@
 
 #include "MemoryPlayerStateRepository.h"
 
-void MemoryPlayerStateRepository::save_player_state(const PlayerState& state) {
+#include <sys/stat.h>
 
+void MemoryPlayerStateRepository::save_player_state(const PlayerState& state) {
+    states_.insert({state.player_id, state});
+    return ;
 }
+
+std::optional<PlayerState> MemoryPlayerStateRepository::load_player_state(int player_id) {
+    if (!states_.contains(player_id)) {
+        return std::nullopt;
+    }
+    return states_.at(player_id);
+}
+
+void MemoryPlayerStateRepository::mark_offline(int player_id) {
+    states_[player_id].online = false;
+}
+
+void MemoryPlayerStateRepository::mark_online(int player_id) {
+    states_[player_id].online = true;
+}
+

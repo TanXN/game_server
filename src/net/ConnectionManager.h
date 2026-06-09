@@ -17,7 +17,7 @@ public:
 
     void check_timeout(std::chrono::seconds timeout);
 
-    std::size_t connection_count()const;
+    std::size_t connection_count() const;
 private:
     std::mutex mutex_;
     std::unordered_set<std::shared_ptr<Session>> sessions_;

@@ -37,6 +37,7 @@ void Session::parse_packet() {
         std::string ec;
         MessageCodec::DecodeStatus status = MessageCodec::try_decode(recv_buffer_, msg, &ec);
         if (status == MessageCodec::DecodeStatus::Success) {
+            update_last_active_time(std::chrono::steady_clock::now());
             dispatcher_.dispatch(shared_from_this(), msg);
         }else if(status == MessageCodec::DecodeStatus::NeedMore) {
             break;
@@ -89,6 +90,7 @@ void Session::close() {
 }
 
 void Session::start() {
+    update_last_active_time(std::chrono::steady_clock::now());
     do_read();
 }
 
@@ -118,3 +120,23 @@ void Session::set_callback(Callback callback) {
 void Session::update_last_active_time(std::chrono::steady_clock::time_point time) {
     last_active_time_ = time;
 }
+
+
+bool Session::check_timeout(std::chrono::seconds timeout) {
+    auto now = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(now - last_active_time_);
+    if (duration > timeout) {
+        return true;
+    }
+    return false;
+}
+
+
+std::string Session::get_token() {
+    return token_;
+}
+
+void Session::set_token(std::string token) {
+    token_ = token;
+}
+

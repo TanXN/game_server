@@ -17,12 +17,15 @@ void HeartbeatService::handle_heartbeat(std::shared_ptr<Session> session, const 
     session->update_last_active_time(now);
 
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
-    std::cout << "[heartbeat] recv from player " << session->player_id() << std::endl;
+    std::cout << "[heartbeat] recv from player " << session->player_id()
+    << " time=" << req.client_time_ms()
+    << std::endl;
 
     Message msg;
     msg.msg_id = MessageId::HeartbeatResp;
     game_server::HeartbeatResp resp;
     resp.set_client_time_ms(req.client_time_ms());
     resp.set_server_time_ms(duration.count());
+    resp.SerializeToString(&msg.body);
     session->send(msg);
 }

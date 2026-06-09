@@ -10,6 +10,8 @@
 #include <atomic>
 
 #include "ConnectionManager.h"
+#include "player/PlayerRuntimeState.h"
+#include "player/PlayerStateManager.h"
 
 class session;
 class playerManager;
@@ -17,22 +19,27 @@ class playerManager;
 
 class LoginService {
 public:
-    explicit LoginService(PlayerManager& player_manager);
+    explicit LoginService(PlayerManager& player_manager, ConnectionManager& connection_manager,
+        PlayerStateManager& player_state_manager);
 
     void handle_login(std::shared_ptr<Session> session, const Message& message);
 
 private:
+    std::string generate_token(int player_id);
+
     int generate_player_id();
 
     std::string parse_username(const Message& message);
 
-    void send_login_success(std::shared_ptr<Session> session, int player_id);
+    void send_login_success(std::shared_ptr<Session> session, int player_id, std::string& token);
 
     void send_login_failed(std::shared_ptr<Session> session,
         const std::string& reason);
 
     PlayerManager& player_manager_;
     ConnectionManager& connection_manager_;
+    PlayerStateManager& player_state_manager_;
+
 
     std::atomic<int> next_player_id_{10000};
 

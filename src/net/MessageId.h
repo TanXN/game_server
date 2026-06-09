@@ -23,5 +23,8 @@ public:
 
     static constexpr uint16_t HeartbeatReq = 9001;
     static constexpr uint16_t HeartbeatResp = 9002;
+
+    static constexpr uint16_t ReconnectReq = 9101;
+    static constexpr uint16_t ReconnectResp = 9102;
 };
 #endif //GAME_SERVER_MESSAGEID_H

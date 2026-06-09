@@ -35,6 +35,12 @@ public:
 
     void update_last_active_time(std::chrono::steady_clock::time_point time);
 
+    bool check_timeout(std::chrono::seconds timeout);
+
+    std::string get_token();
+
+    void set_token(std::string token);
+
 private:
     void do_read();
 
@@ -43,6 +49,7 @@ private:
 private:
     tcp::socket socket_;
     int player_id_ = 0;
+    std::string token_;
     MessageDispatcher& dispatcher_;
 
     std::array<char, 4096> read_buffer_{};
@@ -52,6 +59,8 @@ private:
     std::chrono::steady_clock::time_point last_active_time_;
 
     void parse_packet();
+
+
     bool closed_ = false;
 
     Callback callback_;

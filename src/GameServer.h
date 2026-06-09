@@ -12,12 +12,14 @@
 #include "player/PlayerManager.h"
 #include "match/MatchQueue.h"
 #include "net/MessageDispatcher.h"
+#include "player/PlayerStateManager.h"
 #include "room/RoomManager.h"
 #include "service/ChatService.h"
 #include "service/HeartbeatService.h"
 
 #include "service/LoginService.h"
 #include "service/MatchService.h"
+#include "service/ReconnectService.h"
 
 using boost::asio::ip::tcp;
 
@@ -31,6 +33,10 @@ private:
     void start_tick();
     void do_accept(tcp::acceptor& acceptor, MessageDispatcher& dispatcher);
     void print_stat();
+    void start_timeout_check();
+    void start_reconnect_timeout_check();
+    void check_reconnect_timeout();
+
 
     boost::asio::io_context io_;
     tcp::acceptor acceptor_;
@@ -40,14 +46,19 @@ private:
     MatchQueue match_queue_;
     MessageDispatcher dispatcher_;
     ConnectionManager connection_manager_;
+    PlayerStateManager player_state_manager_;
 
     LoginService login_service_;
     MatchService match_service_;
     ChatService chat_service_;
     HeartbeatService heartbeat_service_;
+    ReconnectService reconnect_service_;
 
     boost::asio::steady_timer timer_;
     boost::asio::steady_timer print_timer_;
+    boost::asio::steady_timer heartbeat_timer_;
+    boost::asio::steady_timer check_reconnect_timer_;
+
 };
 
 

@@ -47,9 +47,19 @@ void Room::tick() {
     ++tick_count_;
 
     if (tick_count_ % 50 == 0) {
+        int online = 0, offline = 0;
+        for (auto it = player_states_.begin(); it != player_states_.end(); it++) {
+            if (it->second.conn_state == PlayerConnState::Online) {
+                online++;
+            }else if (it->second.conn_state == PlayerConnState::Offline) {
+                offline++;
+            }
+        }
         std::cout << "[RoomTick] room_id=" << room_id_
         << " tick=" << tick_count_
         << " player_count=" << player_ids_.size()
+        << " online=" << online
+        << " offline=" << offline
         << std::endl;
     }
 }
@@ -93,3 +103,26 @@ void Room::broadcast_except(int except_player_id, const Message &message) {
         }
     }
 }
+
+bool Room::is_player_disconnected(int player_id) const {
+    if(player_states_.find(player_id) != player_states_.end()) {
+        PlayerRuntimeState state = player_states_.at(player_id);
+        return state.conn_state == PlayerConnState::Offline;
+    }
+
+    return false;
+}
+
+void Room::mark_player_disconnected(int player_id) {
+    if (player_states_.find(player_id) != player_states_.end()) {
+        player_states_[player_id].conn_state = Offline;
+    }
+}
+
+void Room::mark_player_online(int player_id) {
+    if (player_states_.find(player_id) != player_states_.end()) {
+        player_states_[player_id].conn_state = Online;
+    }
+}
+
+

@@ -23,6 +23,11 @@ add_executable(game_server
         src/room/RoomManager.cpp
         src/room/Room.cpp
         src/service/ChatService.cpp
+        src/service/HeartbeatService.cpp
+        src/net/ConnectionManager.cpp
+        src/player/PlayerRuntimeState.h
+        src/player/PlayerStateManager.cpp
+        src/service/ReconnectService.cpp
 )
 
 target_include_directories(
