@@ -26,5 +26,8 @@ public:
 
     static constexpr uint16_t ReconnectReq = 9101;
     static constexpr uint16_t ReconnectResp = 9102;
+
+    static constexpr uint16_t RankingReq = 5001;
+    static constexpr uint16_t RankingResp = 5002;
 };
 #endif //GAME_SERVER_MESSAGEID_H

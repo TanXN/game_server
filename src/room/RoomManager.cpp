@@ -71,8 +71,9 @@ void RoomManager::remove_room(int room_id) {
     }
 }
 
-RoomManager::RoomManager(PlayerManager &player_manager)
-    :player_manager_(player_manager)
+RoomManager::RoomManager(PlayerManager &player_manager, PlayerStateRepository &player_manager_repository)
+    :player_manager_(player_manager),
+    player_state_repository_(player_manager_repository)
 {}
 
 void RoomManager::tick_all() {
@@ -108,6 +109,15 @@ int RoomManager::create_room(const std::vector<int> &player_ids) {
     for (auto player_id : player_ids) {
         auto session = player_manager_.get_session(player_id);
         session->send(msg);
+    }
+
+    for (int player_id : player_ids) {
+        auto state_opt = player_state_repository_.load_player_state(player_id);
+        if (state_opt.has_value()) {
+            auto state = state_opt.value();
+            state.room_id = room_id;
+            player_state_repository_.save_player_state(state);
+        }
     }
 
     return room_id;

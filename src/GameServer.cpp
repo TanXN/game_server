@@ -12,10 +12,11 @@
 
 GameServer::GameServer()
     :acceptor_(io_, tcp::endpoint(tcp::v4(), 9000)),
-    room_manager_(player_manager_),
-    login_service_(player_manager_, connection_manager_, player_state_manager_),
+    room_manager_(player_manager_, player_state_repository_),
+    login_service_(player_manager_, connection_manager_, player_state_manager_, player_state_repository_),
     match_service_(match_queue_, room_manager_),
-    chat_service_(room_manager_),
+    ranking_service_(player_state_repository_),
+    chat_service_(room_manager_, ranking_service_),
     reconnect_service_(player_manager_, room_manager_, player_state_manager_, connection_manager_),
     timer_(io_),
     print_timer_(io_),
@@ -74,6 +75,10 @@ void GameServer::start() {
     dispatcher_.register_handler(MessageId::ReconnectReq,
         [this](const std::shared_ptr<Session>& session, const Message& message) {
             reconnect_service_.handle_reconnect(session, message);
+        });
+    dispatcher_.register_handler(MessageId::RankingReq,
+        [this](const std::shared_ptr<Session>& session, const Message& message) {
+            ranking_service_.handle_ranking_req(session, message);
         });
 
     std::cout << "server listen on port 9000" << std::endl;

@@ -11,13 +11,15 @@
 #include <unordered_map>
 #include <atomic>
 
+#include "player/PlayerStateRepository.h"
+
 
 class Room;
 class PlayerManager;
 
 class RoomManager {
 public:
-    explicit RoomManager(PlayerManager& player_manager);
+    explicit RoomManager(PlayerManager& player_manager, PlayerStateRepository& player_state_repository);
 
     int create_room(const std::vector<int>& player_ids);
     void remove_room(int room_id);
@@ -46,6 +48,7 @@ private:
     std::atomic<int> next_room_id_ = 1;
 
     PlayerManager& player_manager_;
+    PlayerStateRepository& player_state_repository_;
 
     std::unordered_map<int, std::shared_ptr<Room>> rooms_;
     std::unordered_map<int, int> player_room_map_;

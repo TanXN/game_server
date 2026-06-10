@@ -10,8 +10,8 @@
 #include "net/Message.h"
 #include "proto/message.pb.h"
 
-ClientSimulator::ClientSimulator()
-    :socket_(io_), timer_(io_)
+ClientSimulator::ClientSimulator(bool chat)
+    :socket_(io_), timer_(io_), enable_chat(chat), chat_timer_(io_)
 {
     auto resolver = boost::asio::ip::tcp::resolver(io_);
     auto endpoints = resolver.resolve("127.0.0.1", "9000");
@@ -125,8 +125,21 @@ void ClientSimulator::handle_message(Message& msg) {
 
             break;
         }
+        case MessageId::RankingResp: {
+            game_server::RankingResp resp;
+            resp.ParseFromString(msg.body);
+            auto items = resp.items();
+            std::cout << "[RankingResp]" << std::endl;
+            for (int i=0;i<items.size();i++) {
+                auto item = items[i];
+                int player_id = item.player_id();
+                int score = item.score();
+                std::cout << "rank=" << i+1 << " player_id=" << player_id << " score=" << score << std::endl;
+            }
+            break;
+        }
         default: {
-            std::cout << "no matching messageId" << std::endl;
+            std::cout << "no matching messageId=" << msg.msg_id << std::endl;
             break;
         }
 
@@ -142,7 +155,7 @@ void ClientSimulator::try_parse() {
         if (MessageCodec::try_decode(recv_buffer_, msg, &error_msg) != MessageCodec::DecodeStatus::Success) {
             break;
         }
-        std::cout << "received packet msg_id=" << msg.msg_id << " body_size=" << msg.body.size() << std::endl;
+        // std::cout << "received packet msg_id=" << msg.msg_id << " body_size=" << msg.body.size() << std::endl;
         handle_message(msg);
 
     }
@@ -177,11 +190,37 @@ void ClientSimulator::chat(std::string text) {
     boost::asio::write(socket_, boost::asio::buffer(packet));
 }
 
+void ClientSimulator::rank() {
+    game_server::RankingReq req;
+    req.set_top_n(10);
+    Message msg;
+    msg.msg_id = MessageId::RankingReq;
+    req.SerializeToString(&msg.body);
+    auto packet = MessageCodec::encode(msg);
+    boost::asio::write(socket_, boost::asio::buffer(packet));
+}
+
 void ClientSimulator::start() {
 
     login();
     duration_send();
+
+    auto rank_timer = boost::asio::steady_timer(io_);
+    rank_timer.expires_after(std::chrono::seconds(20));
+    rank_timer.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            std::cout << "rank error : " << ec.message() << std::endl;
+            return ;
+        }
+        rank();
+    });
+
     do_read();
+
+
+    duration_chat();
+
+
     io_.run();
 
 }
@@ -295,6 +334,21 @@ void ClientSimulator::test_reconnect() {
     do_read();
     io_.run();
 
+}
 
+void ClientSimulator::duration_chat() {
+    if (!enable_chat) {
+        return ;
+    }
+    chat_timer_.expires_after(std::chrono::seconds(2));
+    chat_timer_.async_wait([this](boost::system::error_code ec) {
+        if (ec) {
+            std::cout << "duration_chat error : " << ec.message() << std::endl;
+            return ;
+        }
+        chat("this is a chat");
+
+        duration_chat();
+    });
 
 }

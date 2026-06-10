@@ -8,6 +8,7 @@
 #include <mutex>
 #include <unordered_map>
 
+#include "PlayerState.h"
 #include "PlayerStateRepository.h"
 
 class MemoryPlayerStateRepository : public PlayerStateRepository{
@@ -20,6 +21,8 @@ public:
     void update_score(int player_id, int score) override;
 
     std::vector<PlayerState> get_all_players() override;
+
+
 
 private:
     std::mutex mutex_;

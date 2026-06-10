@@ -28,6 +28,9 @@ add_executable(game_server
         src/player/PlayerRuntimeState.h
         src/player/PlayerStateManager.cpp
         src/service/ReconnectService.cpp
+        src/service/RankingService.cpp
+        src/player/MemoryPlayerStateRepository.cpp
+        src/player/PlayerStateRepository.h
 )
 
 target_include_directories(

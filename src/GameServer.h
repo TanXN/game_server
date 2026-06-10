@@ -12,6 +12,7 @@
 #include "player/PlayerManager.h"
 #include "match/MatchQueue.h"
 #include "net/MessageDispatcher.h"
+#include "player/MemoryPlayerStateRepository.h"
 #include "player/PlayerStateManager.h"
 #include "room/RoomManager.h"
 #include "service/ChatService.h"
@@ -47,9 +48,11 @@ private:
     MessageDispatcher dispatcher_;
     ConnectionManager connection_manager_;
     PlayerStateManager player_state_manager_;
+    MemoryPlayerStateRepository player_state_repository_;
 
     LoginService login_service_;
     MatchService match_service_;
+    RankingService ranking_service_;
     ChatService chat_service_;
     HeartbeatService heartbeat_service_;
     ReconnectService reconnect_service_;

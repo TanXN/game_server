@@ -78,6 +78,15 @@ extern MatchReqDefaultTypeInternal _MatchReq_default_instance_;
 class MatchResp;
 struct MatchRespDefaultTypeInternal;
 extern MatchRespDefaultTypeInternal _MatchResp_default_instance_;
+class RankingItem;
+struct RankingItemDefaultTypeInternal;
+extern RankingItemDefaultTypeInternal _RankingItem_default_instance_;
+class RankingReq;
+struct RankingReqDefaultTypeInternal;
+extern RankingReqDefaultTypeInternal _RankingReq_default_instance_;
+class RankingResp;
+struct RankingRespDefaultTypeInternal;
+extern RankingRespDefaultTypeInternal _RankingResp_default_instance_;
 class ReconnectReq;
 struct ReconnectReqDefaultTypeInternal;
 extern ReconnectReqDefaultTypeInternal _ReconnectReq_default_instance_;
@@ -100,6 +109,9 @@ template<> ::game_server::MatchCancelReq* Arena::CreateMaybeMessage<::game_serve
 template<> ::game_server::MatchCancelResp* Arena::CreateMaybeMessage<::game_server::MatchCancelResp>(Arena*);
 template<> ::game_server::MatchReq* Arena::CreateMaybeMessage<::game_server::MatchReq>(Arena*);
 template<> ::game_server::MatchResp* Arena::CreateMaybeMessage<::game_server::MatchResp>(Arena*);
+template<> ::game_server::RankingItem* Arena::CreateMaybeMessage<::game_server::RankingItem>(Arena*);
+template<> ::game_server::RankingReq* Arena::CreateMaybeMessage<::game_server::RankingReq>(Arena*);
+template<> ::game_server::RankingResp* Arena::CreateMaybeMessage<::game_server::RankingResp>(Arena*);
 template<> ::game_server::ReconnectReq* Arena::CreateMaybeMessage<::game_server::ReconnectReq>(Arena*);
 template<> ::game_server::ReconnectResp* Arena::CreateMaybeMessage<::game_server::ReconnectResp>(Arena*);
 template<> ::game_server::RoomCreatedNotify* Arena::CreateMaybeMessage<::game_server::RoomCreatedNotify>(Arena*);
@@ -2407,6 +2419,470 @@ class ReconnectResp final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_proto_2fmessage_2eproto;
 };
+// -------------------------------------------------------------------
+
+class RankingReq final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:game_server.RankingReq) */ {
+ public:
+  inline RankingReq() : RankingReq(nullptr) {}
+  ~RankingReq() override;
+  explicit PROTOBUF_CONSTEXPR RankingReq(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RankingReq(const RankingReq& from);
+  RankingReq(RankingReq&& from) noexcept
+    : RankingReq() {
+    *this = ::std::move(from);
+  }
+
+  inline RankingReq& operator=(const RankingReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RankingReq& operator=(RankingReq&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RankingReq& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RankingReq* internal_default_instance() {
+    return reinterpret_cast<const RankingReq*>(
+               &_RankingReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(RankingReq& a, RankingReq& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RankingReq* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RankingReq* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RankingReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RankingReq>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RankingReq& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RankingReq& from) {
+    RankingReq::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RankingReq* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "game_server.RankingReq";
+  }
+  protected:
+  explicit RankingReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTopNFieldNumber = 1,
+  };
+  // int64 top_n = 1;
+  void clear_top_n();
+  int64_t top_n() const;
+  void set_top_n(int64_t value);
+  private:
+  int64_t _internal_top_n() const;
+  void _internal_set_top_n(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:game_server.RankingReq)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t top_n_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RankingItem final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:game_server.RankingItem) */ {
+ public:
+  inline RankingItem() : RankingItem(nullptr) {}
+  ~RankingItem() override;
+  explicit PROTOBUF_CONSTEXPR RankingItem(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RankingItem(const RankingItem& from);
+  RankingItem(RankingItem&& from) noexcept
+    : RankingItem() {
+    *this = ::std::move(from);
+  }
+
+  inline RankingItem& operator=(const RankingItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RankingItem& operator=(RankingItem&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RankingItem& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RankingItem* internal_default_instance() {
+    return reinterpret_cast<const RankingItem*>(
+               &_RankingItem_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(RankingItem& a, RankingItem& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RankingItem* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RankingItem* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RankingItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RankingItem>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RankingItem& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RankingItem& from) {
+    RankingItem::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RankingItem* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "game_server.RankingItem";
+  }
+  protected:
+  explicit RankingItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerIdFieldNumber = 1,
+    kScoreFieldNumber = 2,
+  };
+  // int64 player_id = 1;
+  void clear_player_id();
+  int64_t player_id() const;
+  void set_player_id(int64_t value);
+  private:
+  int64_t _internal_player_id() const;
+  void _internal_set_player_id(int64_t value);
+  public:
+
+  // int64 score = 2;
+  void clear_score();
+  int64_t score() const;
+  void set_score(int64_t value);
+  private:
+  int64_t _internal_score() const;
+  void _internal_set_score(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:game_server.RankingItem)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t player_id_;
+    int64_t score_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RankingResp final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:game_server.RankingResp) */ {
+ public:
+  inline RankingResp() : RankingResp(nullptr) {}
+  ~RankingResp() override;
+  explicit PROTOBUF_CONSTEXPR RankingResp(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RankingResp(const RankingResp& from);
+  RankingResp(RankingResp&& from) noexcept
+    : RankingResp() {
+    *this = ::std::move(from);
+  }
+
+  inline RankingResp& operator=(const RankingResp& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RankingResp& operator=(RankingResp&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RankingResp& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RankingResp* internal_default_instance() {
+    return reinterpret_cast<const RankingResp*>(
+               &_RankingResp_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(RankingResp& a, RankingResp& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RankingResp* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RankingResp* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RankingResp* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RankingResp>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RankingResp& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RankingResp& from) {
+    RankingResp::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RankingResp* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "game_server.RankingResp";
+  }
+  protected:
+  explicit RankingResp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kItemsFieldNumber = 1,
+  };
+  // repeated .game_server.RankingItem items = 1;
+  int items_size() const;
+  private:
+  int _internal_items_size() const;
+  public:
+  void clear_items();
+  ::game_server::RankingItem* mutable_items(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::game_server::RankingItem >*
+      mutable_items();
+  private:
+  const ::game_server::RankingItem& _internal_items(int index) const;
+  ::game_server::RankingItem* _internal_add_items();
+  public:
+  const ::game_server::RankingItem& items(int index) const;
+  ::game_server::RankingItem* add_items();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::game_server::RankingItem >&
+      items() const;
+
+  // @@protoc_insertion_point(class_scope:game_server.RankingResp)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::game_server::RankingItem > items_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_proto_2fmessage_2eproto;
+};
 // ===================================================================
 
 
@@ -3377,9 +3853,127 @@ inline void ReconnectResp::set_allocated_message(std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:game_server.ReconnectResp.message)
 }
 
+// -------------------------------------------------------------------
+
+// RankingReq
+
+// int64 top_n = 1;
+inline void RankingReq::clear_top_n() {
+  _impl_.top_n_ = int64_t{0};
+}
+inline int64_t RankingReq::_internal_top_n() const {
+  return _impl_.top_n_;
+}
+inline int64_t RankingReq::top_n() const {
+  // @@protoc_insertion_point(field_get:game_server.RankingReq.top_n)
+  return _internal_top_n();
+}
+inline void RankingReq::_internal_set_top_n(int64_t value) {
+  
+  _impl_.top_n_ = value;
+}
+inline void RankingReq::set_top_n(int64_t value) {
+  _internal_set_top_n(value);
+  // @@protoc_insertion_point(field_set:game_server.RankingReq.top_n)
+}
+
+// -------------------------------------------------------------------
+
+// RankingItem
+
+// int64 player_id = 1;
+inline void RankingItem::clear_player_id() {
+  _impl_.player_id_ = int64_t{0};
+}
+inline int64_t RankingItem::_internal_player_id() const {
+  return _impl_.player_id_;
+}
+inline int64_t RankingItem::player_id() const {
+  // @@protoc_insertion_point(field_get:game_server.RankingItem.player_id)
+  return _internal_player_id();
+}
+inline void RankingItem::_internal_set_player_id(int64_t value) {
+  
+  _impl_.player_id_ = value;
+}
+inline void RankingItem::set_player_id(int64_t value) {
+  _internal_set_player_id(value);
+  // @@protoc_insertion_point(field_set:game_server.RankingItem.player_id)
+}
+
+// int64 score = 2;
+inline void RankingItem::clear_score() {
+  _impl_.score_ = int64_t{0};
+}
+inline int64_t RankingItem::_internal_score() const {
+  return _impl_.score_;
+}
+inline int64_t RankingItem::score() const {
+  // @@protoc_insertion_point(field_get:game_server.RankingItem.score)
+  return _internal_score();
+}
+inline void RankingItem::_internal_set_score(int64_t value) {
+  
+  _impl_.score_ = value;
+}
+inline void RankingItem::set_score(int64_t value) {
+  _internal_set_score(value);
+  // @@protoc_insertion_point(field_set:game_server.RankingItem.score)
+}
+
+// -------------------------------------------------------------------
+
+// RankingResp
+
+// repeated .game_server.RankingItem items = 1;
+inline int RankingResp::_internal_items_size() const {
+  return _impl_.items_.size();
+}
+inline int RankingResp::items_size() const {
+  return _internal_items_size();
+}
+inline void RankingResp::clear_items() {
+  _impl_.items_.Clear();
+}
+inline ::game_server::RankingItem* RankingResp::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:game_server.RankingResp.items)
+  return _impl_.items_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::game_server::RankingItem >*
+RankingResp::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:game_server.RankingResp.items)
+  return &_impl_.items_;
+}
+inline const ::game_server::RankingItem& RankingResp::_internal_items(int index) const {
+  return _impl_.items_.Get(index);
+}
+inline const ::game_server::RankingItem& RankingResp::items(int index) const {
+  // @@protoc_insertion_point(field_get:game_server.RankingResp.items)
+  return _internal_items(index);
+}
+inline ::game_server::RankingItem* RankingResp::_internal_add_items() {
+  return _impl_.items_.Add();
+}
+inline ::game_server::RankingItem* RankingResp::add_items() {
+  ::game_server::RankingItem* _add = _internal_add_items();
+  // @@protoc_insertion_point(field_add:game_server.RankingResp.items)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::game_server::RankingItem >&
+RankingResp::items() const {
+  // @@protoc_insertion_point(field_list:game_server.RankingResp.items)
+  return _impl_.items_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

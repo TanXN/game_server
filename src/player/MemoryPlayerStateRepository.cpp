@@ -5,10 +5,12 @@
 #include "MemoryPlayerStateRepository.h"
 
 #include <sys/stat.h>
+#include <optional>
+#include "PlayerState.h"
 
 void MemoryPlayerStateRepository::save_player_state(const PlayerState& state) {
-    states_.insert({state.player_id, state});
-    return ;
+    std::lock_guard<std::mutex> lock(mutex_);
+    states_[state.player_id] = state;
 }
 
 std::optional<PlayerState> MemoryPlayerStateRepository::load_player_state(int player_id) {
@@ -19,10 +21,12 @@ std::optional<PlayerState> MemoryPlayerStateRepository::load_player_state(int pl
 }
 
 void MemoryPlayerStateRepository::mark_offline(int player_id) {
+    std::lock_guard<std::mutex> lock(mutex_);
     states_[player_id].online = false;
 }
 
 void MemoryPlayerStateRepository::mark_online(int player_id) {
+    std::lock_guard<std::mutex> lock(mutex_);
     states_[player_id].online = true;
 }
 
@@ -42,3 +46,4 @@ void MemoryPlayerStateRepository::update_score(int player_id, int score) {
         states_[player_id].score = score;
     }
 }
+

@@ -219,8 +219,48 @@ struct ReconnectRespDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReconnectRespDefaultTypeInternal _ReconnectResp_default_instance_;
+PROTOBUF_CONSTEXPR RankingReq::RankingReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.top_n_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RankingReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RankingReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RankingReqDefaultTypeInternal() {}
+  union {
+    RankingReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankingReqDefaultTypeInternal _RankingReq_default_instance_;
+PROTOBUF_CONSTEXPR RankingItem::RankingItem(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.player_id_)*/int64_t{0}
+  , /*decltype(_impl_.score_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RankingItemDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RankingItemDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RankingItemDefaultTypeInternal() {}
+  union {
+    RankingItem _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankingItemDefaultTypeInternal _RankingItem_default_instance_;
+PROTOBUF_CONSTEXPR RankingResp::RankingResp(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.items_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RankingRespDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RankingRespDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RankingRespDefaultTypeInternal() {}
+  union {
+    RankingResp _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankingRespDefaultTypeInternal _RankingResp_default_instance_;
 }  // namespace game_server
-static ::_pb::Metadata file_level_metadata_proto_2fmessage_2eproto[14];
+static ::_pb::Metadata file_level_metadata_proto_2fmessage_2eproto[17];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_proto_2fmessage_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_proto_2fmessage_2eproto = nullptr;
 
@@ -338,6 +378,28 @@ const uint32_t TableStruct_proto_2fmessage_2eproto::offsets[] PROTOBUF_SECTION_V
   PROTOBUF_FIELD_OFFSET(::game_server::ReconnectResp, _impl_.player_id_),
   PROTOBUF_FIELD_OFFSET(::game_server::ReconnectResp, _impl_.room_id_),
   PROTOBUF_FIELD_OFFSET(::game_server::ReconnectResp, _impl_.message_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingReq, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingReq, _impl_.top_n_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingItem, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingItem, _impl_.player_id_),
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingItem, _impl_.score_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingResp, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::game_server::RankingResp, _impl_.items_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::game_server::LoginReq)},
@@ -354,6 +416,9 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 87, -1, -1, sizeof(::game_server::HeartbeatResp)},
   { 95, -1, -1, sizeof(::game_server::ReconnectReq)},
   { 103, -1, -1, sizeof(::game_server::ReconnectResp)},
+  { 113, -1, -1, sizeof(::game_server::RankingReq)},
+  { 120, -1, -1, sizeof(::game_server::RankingItem)},
+  { 128, -1, -1, sizeof(::game_server::RankingResp)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -371,6 +436,9 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::game_server::_HeartbeatResp_default_instance_._instance,
   &::game_server::_ReconnectReq_default_instance_._instance,
   &::game_server::_ReconnectResp_default_instance_._instance,
+  &::game_server::_RankingReq_default_instance_._instance,
+  &::game_server::_RankingItem_default_instance_._instance,
+  &::game_server::_RankingResp_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_proto_2fmessage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -392,13 +460,17 @@ const char descriptor_table_protodef_proto_2fmessage_2eproto[] PROTOBUF_SECTION_
   "\030\002 \001(\003\"0\n\014ReconnectReq\022\021\n\tplayer_id\030\001 \001("
   "\003\022\r\n\005token\030\002 \001(\t\"R\n\rReconnectResp\022\014\n\004cod"
   "e\030\001 \001(\003\022\021\n\tplayer_id\030\002 \001(\005\022\017\n\007room_id\030\003 "
-  "\001(\005\022\017\n\007message\030\004 \001(\tb\006proto3"
+  "\001(\005\022\017\n\007message\030\004 \001(\t\"\033\n\nRankingReq\022\r\n\005to"
+  "p_n\030\001 \001(\003\"/\n\013RankingItem\022\021\n\tplayer_id\030\001 "
+  "\001(\003\022\r\n\005score\030\002 \001(\003\"6\n\013RankingResp\022\'\n\005ite"
+  "ms\030\001 \003(\0132\030.game_server.RankingItemb\006prot"
+  "o3"
   ;
 static ::_pbi::once_flag descriptor_table_proto_2fmessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_proto_2fmessage_2eproto = {
-    false, false, 748, descriptor_table_protodef_proto_2fmessage_2eproto,
+    false, false, 882, descriptor_table_protodef_proto_2fmessage_2eproto,
     "proto/message.proto",
-    &descriptor_table_proto_2fmessage_2eproto_once, nullptr, 0, 14,
+    &descriptor_table_proto_2fmessage_2eproto_once, nullptr, 0, 17,
     schemas, file_default_instances, TableStruct_proto_2fmessage_2eproto::offsets,
     file_level_metadata_proto_2fmessage_2eproto, file_level_enum_descriptors_proto_2fmessage_2eproto,
     file_level_service_descriptors_proto_2fmessage_2eproto,
@@ -3592,6 +3664,580 @@ void ReconnectResp::InternalSwap(ReconnectResp* other) {
       file_level_metadata_proto_2fmessage_2eproto[13]);
 }
 
+// ===================================================================
+
+class RankingReq::_Internal {
+ public:
+};
+
+RankingReq::RankingReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:game_server.RankingReq)
+}
+RankingReq::RankingReq(const RankingReq& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RankingReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.top_n_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.top_n_ = from._impl_.top_n_;
+  // @@protoc_insertion_point(copy_constructor:game_server.RankingReq)
+}
+
+inline void RankingReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.top_n_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+RankingReq::~RankingReq() {
+  // @@protoc_insertion_point(destructor:game_server.RankingReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RankingReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void RankingReq::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RankingReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:game_server.RankingReq)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.top_n_ = int64_t{0};
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RankingReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 top_n = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.top_n_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RankingReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:game_server.RankingReq)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 top_n = 1;
+  if (this->_internal_top_n() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_top_n(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:game_server.RankingReq)
+  return target;
+}
+
+size_t RankingReq::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:game_server.RankingReq)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 top_n = 1;
+  if (this->_internal_top_n() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_top_n());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RankingReq::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RankingReq::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RankingReq::GetClassData() const { return &_class_data_; }
+
+
+void RankingReq::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RankingReq*>(&to_msg);
+  auto& from = static_cast<const RankingReq&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:game_server.RankingReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_top_n() != 0) {
+    _this->_internal_set_top_n(from._internal_top_n());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RankingReq::CopyFrom(const RankingReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:game_server.RankingReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankingReq::IsInitialized() const {
+  return true;
+}
+
+void RankingReq::InternalSwap(RankingReq* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.top_n_, other->_impl_.top_n_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RankingReq::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_proto_2fmessage_2eproto_getter, &descriptor_table_proto_2fmessage_2eproto_once,
+      file_level_metadata_proto_2fmessage_2eproto[14]);
+}
+
+// ===================================================================
+
+class RankingItem::_Internal {
+ public:
+};
+
+RankingItem::RankingItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:game_server.RankingItem)
+}
+RankingItem::RankingItem(const RankingItem& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RankingItem* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.player_id_){}
+    , decltype(_impl_.score_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.player_id_, &from._impl_.player_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.score_) -
+    reinterpret_cast<char*>(&_impl_.player_id_)) + sizeof(_impl_.score_));
+  // @@protoc_insertion_point(copy_constructor:game_server.RankingItem)
+}
+
+inline void RankingItem::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.player_id_){int64_t{0}}
+    , decltype(_impl_.score_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+RankingItem::~RankingItem() {
+  // @@protoc_insertion_point(destructor:game_server.RankingItem)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RankingItem::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void RankingItem::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RankingItem::Clear() {
+// @@protoc_insertion_point(message_clear_start:game_server.RankingItem)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.player_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.score_) -
+      reinterpret_cast<char*>(&_impl_.player_id_)) + sizeof(_impl_.score_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RankingItem::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 player_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.player_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 score = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RankingItem::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:game_server.RankingItem)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 player_id = 1;
+  if (this->_internal_player_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_player_id(), target);
+  }
+
+  // int64 score = 2;
+  if (this->_internal_score() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_score(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:game_server.RankingItem)
+  return target;
+}
+
+size_t RankingItem::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:game_server.RankingItem)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 player_id = 1;
+  if (this->_internal_player_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_player_id());
+  }
+
+  // int64 score = 2;
+  if (this->_internal_score() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_score());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RankingItem::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RankingItem::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RankingItem::GetClassData() const { return &_class_data_; }
+
+
+void RankingItem::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RankingItem*>(&to_msg);
+  auto& from = static_cast<const RankingItem&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:game_server.RankingItem)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_player_id() != 0) {
+    _this->_internal_set_player_id(from._internal_player_id());
+  }
+  if (from._internal_score() != 0) {
+    _this->_internal_set_score(from._internal_score());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RankingItem::CopyFrom(const RankingItem& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:game_server.RankingItem)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankingItem::IsInitialized() const {
+  return true;
+}
+
+void RankingItem::InternalSwap(RankingItem* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RankingItem, _impl_.score_)
+      + sizeof(RankingItem::_impl_.score_)
+      - PROTOBUF_FIELD_OFFSET(RankingItem, _impl_.player_id_)>(
+          reinterpret_cast<char*>(&_impl_.player_id_),
+          reinterpret_cast<char*>(&other->_impl_.player_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RankingItem::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_proto_2fmessage_2eproto_getter, &descriptor_table_proto_2fmessage_2eproto_once,
+      file_level_metadata_proto_2fmessage_2eproto[15]);
+}
+
+// ===================================================================
+
+class RankingResp::_Internal {
+ public:
+};
+
+RankingResp::RankingResp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:game_server.RankingResp)
+}
+RankingResp::RankingResp(const RankingResp& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RankingResp* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.items_){from._impl_.items_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:game_server.RankingResp)
+}
+
+inline void RankingResp::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.items_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+RankingResp::~RankingResp() {
+  // @@protoc_insertion_point(destructor:game_server.RankingResp)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RankingResp::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.items_.~RepeatedPtrField();
+}
+
+void RankingResp::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RankingResp::Clear() {
+// @@protoc_insertion_point(message_clear_start:game_server.RankingResp)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.items_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RankingResp::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .game_server.RankingItem items = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_items(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RankingResp::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:game_server.RankingResp)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .game_server.RankingItem items = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_items_size()); i < n; i++) {
+    const auto& repfield = this->_internal_items(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:game_server.RankingResp)
+  return target;
+}
+
+size_t RankingResp::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:game_server.RankingResp)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .game_server.RankingItem items = 1;
+  total_size += 1UL * this->_internal_items_size();
+  for (const auto& msg : this->_impl_.items_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RankingResp::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RankingResp::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RankingResp::GetClassData() const { return &_class_data_; }
+
+
+void RankingResp::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RankingResp*>(&to_msg);
+  auto& from = static_cast<const RankingResp&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:game_server.RankingResp)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.items_.MergeFrom(from._impl_.items_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RankingResp::CopyFrom(const RankingResp& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:game_server.RankingResp)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankingResp::IsInitialized() const {
+  return true;
+}
+
+void RankingResp::InternalSwap(RankingResp* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.items_.InternalSwap(&other->_impl_.items_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RankingResp::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_proto_2fmessage_2eproto_getter, &descriptor_table_proto_2fmessage_2eproto_once,
+      file_level_metadata_proto_2fmessage_2eproto[16]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace game_server
 PROTOBUF_NAMESPACE_OPEN
@@ -3650,6 +4296,18 @@ Arena::CreateMaybeMessage< ::game_server::ReconnectReq >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::game_server::ReconnectResp*
 Arena::CreateMaybeMessage< ::game_server::ReconnectResp >(Arena* arena) {
   return Arena::CreateMessageInternal< ::game_server::ReconnectResp >(arena);
+}
+template<> PROTOBUF_NOINLINE ::game_server::RankingReq*
+Arena::CreateMaybeMessage< ::game_server::RankingReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::game_server::RankingReq >(arena);
+}
+template<> PROTOBUF_NOINLINE ::game_server::RankingItem*
+Arena::CreateMaybeMessage< ::game_server::RankingItem >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::game_server::RankingItem >(arena);
+}
+template<> PROTOBUF_NOINLINE ::game_server::RankingResp*
+Arena::CreateMaybeMessage< ::game_server::RankingResp >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::game_server::RankingResp >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

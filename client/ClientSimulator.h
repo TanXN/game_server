@@ -16,7 +16,7 @@ class ClientSimulator {
 public:
 
 
-    ClientSimulator();
+    ClientSimulator(bool chat = false);
 
     void login();
 
@@ -37,6 +37,8 @@ private:
     void send_heartbeat();
     void duration_send();
     void reconnect();
+    void duration_chat();
+    void rank();
 
 
     boost::asio::io_context io_;
@@ -45,12 +47,14 @@ private:
     int player_id_;
     int room_id_;
     bool heart_beat_enable_ = true;
+    bool enable_chat = false;
     std::string token_;
 
     std::array<char, 4096> read_buffer_{};
     std::vector<char> recv_buffer_;
 
     boost::asio::steady_timer timer_;
+    boost::asio::steady_timer chat_timer_;
 };
 
 

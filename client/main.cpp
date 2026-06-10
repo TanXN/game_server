@@ -7,16 +7,22 @@
 #include "ClientSimulator.h"
 using boost::asio::ip::tcp;
 
-void client_worker() {
-    ClientSimulator clientSimulator;
-    clientSimulator.test_reconnect();
+void client_worker(bool chat = false) {
+    ClientSimulator clientSimulator(chat);
+    clientSimulator.start();
 }
 
 int main() {
     std::size_t thread_count = 2;
     std::vector<std::thread> threads;
     for (std::size_t i=0;i<thread_count;i++) {
-        threads.emplace_back(std::thread(client_worker));
+        if (i==0) {
+            threads.emplace_back(std::thread(client_worker, true));
+
+        }else {
+            threads.emplace_back(std::thread(client_worker, false));
+
+        }
     }
     for (auto& thread : threads) {
         thread.join();

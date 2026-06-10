@@ -12,6 +12,7 @@
 #include "ConnectionManager.h"
 #include "player/PlayerRuntimeState.h"
 #include "player/PlayerStateManager.h"
+#include "player/PlayerStateRepository.h"
 
 class session;
 class playerManager;
@@ -20,7 +21,7 @@ class playerManager;
 class LoginService {
 public:
     explicit LoginService(PlayerManager& player_manager, ConnectionManager& connection_manager,
-        PlayerStateManager& player_state_manager);
+        PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository);
 
     void handle_login(std::shared_ptr<Session> session, const Message& message);
 
@@ -39,7 +40,7 @@ private:
     PlayerManager& player_manager_;
     ConnectionManager& connection_manager_;
     PlayerStateManager& player_state_manager_;
-
+    PlayerStateRepository& player_state_repository_;
 
     std::atomic<int> next_player_id_{10000};
 

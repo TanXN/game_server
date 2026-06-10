@@ -5,8 +5,7 @@
 #ifndef GAME_SERVER_PLAYERSTATEREPOSITORY_H
 #define GAME_SERVER_PLAYERSTATEREPOSITORY_H
 #include <optional>
-
-#include "Player.h"
+#include "PlayerState.h"
 #include <vector>
 
 class PlayerStateRepository {

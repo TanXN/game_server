@@ -7,11 +7,14 @@
 #include "proto/message.pb.h"
 #include <iostream>
 
+#include "player/PlayerState.h"
+
 LoginService::LoginService(PlayerManager &player_manager, ConnectionManager& connection_manager,
-    PlayerStateManager& player_state_manager)
+                           PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository)
 :player_manager_(player_manager),
 connection_manager_(connection_manager),
-player_state_manager_(player_state_manager)
+player_state_manager_(player_state_manager),
+player_state_repository_(player_state_repository)
 {}
 
 
@@ -68,6 +71,16 @@ void LoginService::handle_login(std::shared_ptr<Session> session, const Message 
     session->set_token(token);
     player_manager_.add_player(player_id, session);
     connection_manager_.add_session(session);
+
+    PlayerState state;
+    state.player_id = player_id;
+    state.name = username;
+    state.score = 0;
+    state.online = true;
+    state.room_id = -1;
+    state.last_login_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    player_state_repository_.save_player_state(state);
+
 
     std::cout << "[login] login success, player_id: " << player_id << "\n";
     send_login_success(session, player_id, token);
