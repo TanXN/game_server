@@ -7,7 +7,7 @@
 #include <optional>
 
 #include "Player.h"
-
+#include <vector>
 
 class PlayerStateRepository {
 public:
@@ -17,6 +17,10 @@ public:
     virtual std::optional<PlayerState> load_player_state(int player_id) = 0;
     virtual void mark_online(int player_id) = 0;
     virtual void mark_offline(int player_id) = 0;
+
+    virtual void update_score(int player_id, int score) = 0;
+
+    virtual std::vector<PlayerState> get_all_players() = 0;
 };
 
 

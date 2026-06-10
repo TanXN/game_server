@@ -13,7 +13,7 @@ void client_worker() {
 }
 
 int main() {
-    std::size_t thread_count = 1;
+    std::size_t thread_count = 2;
     std::vector<std::thread> threads;
     for (std::size_t i=0;i<thread_count;i++) {
         threads.emplace_back(std::thread(client_worker));

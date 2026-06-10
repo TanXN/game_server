@@ -26,3 +26,19 @@ void MemoryPlayerStateRepository::mark_online(int player_id) {
     states_[player_id].online = true;
 }
 
+std::vector<PlayerState> MemoryPlayerStateRepository::get_all_players() {
+    std::lock_guard<std::mutex> lock(mutex_);
+    std::vector<PlayerState> result;
+    result.reserve(states_.size());
+    for (auto &it: states_) {
+        result.emplace_back(it.second);
+    }
+    return result;
+}
+
+void MemoryPlayerStateRepository::update_score(int player_id, int score) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (states_.contains(player_id)) {
+        states_[player_id].score = score;
+    }
+}

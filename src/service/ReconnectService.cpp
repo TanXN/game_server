@@ -78,6 +78,7 @@ void ReconnectService::handle_reconnect(std::shared_ptr<Session> session, const 
     connection_manager_.add_session(session);
     room_manager_.mark_player_reconnected(player_id);
 
+    player_state_manager_.mark_online(player_id);
 
     send_reconnect_success(session, player_id, state->room_id);
     std::cout << "[reconnect] player_id=" << player_id

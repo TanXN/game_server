@@ -118,6 +118,11 @@ void ClientSimulator::handle_message(Message& msg) {
             << " message=" << resp.message()
             << std::endl;
 
+            if (resp.code() == 0) {
+                heart_beat_enable_ = true;
+                duration_send();
+            }
+
             break;
         }
         default: {
@@ -257,8 +262,7 @@ void ClientSimulator::reconnect() {
     boost::asio::write(socket_, boost::asio::buffer(packet));
     // send_message(MessageId::ReconnectReq, req);
 
-    heart_beat_enable_ = true;
-    duration_send();
+
 
 }
 
@@ -279,7 +283,7 @@ void ClientSimulator::test_reconnect() {
     });
 
     auto reconnect_timer = boost::asio::steady_timer(io_);
-    reconnect_timer.expires_after(std::chrono::seconds(30));
+    reconnect_timer.expires_after(std::chrono::seconds(80));
     reconnect_timer.async_wait([this](boost::system::error_code ec) {
         if (ec) {
             std::cout << "reconnect_timer error : " << ec.message() << std::endl;
