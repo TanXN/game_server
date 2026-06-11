@@ -44,8 +44,8 @@ void RankingService::handle_ranking_req(std::shared_ptr<Session> session, const 
         auto item = resp.add_items();
         item->set_player_id(players[i].player_id);
         item->set_score(players[i].score);
-        std::cout << "[ranking] player_id=" << players[i].player_id
-        << " score=" << players[i].score << std::endl;
+        // std::cout << "[ranking] player_id=" << players[i].player_id
+        // << " score=" << players[i].score << std::endl;
     }
 
     Message msg;
