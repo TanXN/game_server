@@ -1886,6 +1886,7 @@ class HeartbeatReq final :
 
   enum : int {
     kClientTimeMsFieldNumber = 1,
+    kLastRttMsFieldNumber = 2,
   };
   // int64 client_time_ms = 1;
   void clear_client_time_ms();
@@ -1894,6 +1895,15 @@ class HeartbeatReq final :
   private:
   int64_t _internal_client_time_ms() const;
   void _internal_set_client_time_ms(int64_t value);
+  public:
+
+  // int64 last_rtt_ms = 2;
+  void clear_last_rtt_ms();
+  int64_t last_rtt_ms() const;
+  void set_last_rtt_ms(int64_t value);
+  private:
+  int64_t _internal_last_rtt_ms() const;
+  void _internal_set_last_rtt_ms(int64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:game_server.HeartbeatReq)
@@ -1905,6 +1915,7 @@ class HeartbeatReq final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int64_t client_time_ms_;
+    int64_t last_rtt_ms_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3619,6 +3630,26 @@ inline void HeartbeatReq::_internal_set_client_time_ms(int64_t value) {
 inline void HeartbeatReq::set_client_time_ms(int64_t value) {
   _internal_set_client_time_ms(value);
   // @@protoc_insertion_point(field_set:game_server.HeartbeatReq.client_time_ms)
+}
+
+// int64 last_rtt_ms = 2;
+inline void HeartbeatReq::clear_last_rtt_ms() {
+  _impl_.last_rtt_ms_ = int64_t{0};
+}
+inline int64_t HeartbeatReq::_internal_last_rtt_ms() const {
+  return _impl_.last_rtt_ms_;
+}
+inline int64_t HeartbeatReq::last_rtt_ms() const {
+  // @@protoc_insertion_point(field_get:game_server.HeartbeatReq.last_rtt_ms)
+  return _internal_last_rtt_ms();
+}
+inline void HeartbeatReq::_internal_set_last_rtt_ms(int64_t value) {
+  
+  _impl_.last_rtt_ms_ = value;
+}
+inline void HeartbeatReq::set_last_rtt_ms(int64_t value) {
+  _internal_set_last_rtt_ms(value);
+  // @@protoc_insertion_point(field_set:game_server.HeartbeatReq.last_rtt_ms)
 }
 
 // -------------------------------------------------------------------

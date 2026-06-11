@@ -13,10 +13,10 @@ void client_worker(bool chat = false) {
 }
 
 int main() {
-    std::size_t thread_count = 2;
+    std::size_t thread_count = 50;
     std::vector<std::thread> threads;
     for (std::size_t i=0;i<thread_count;i++) {
-        if (i==0) {
+        if (i%2==0) {
             threads.emplace_back(std::thread(client_worker, true));
 
         }else {

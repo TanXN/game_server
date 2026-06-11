@@ -10,11 +10,13 @@
 #include "player/PlayerState.h"
 
 LoginService::LoginService(PlayerManager &player_manager, ConnectionManager& connection_manager,
-                           PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository)
+                           PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository,
+                           ServerMetrics & metrics)
 :player_manager_(player_manager),
 connection_manager_(connection_manager),
 player_state_manager_(player_state_manager),
-player_state_repository_(player_state_repository)
+player_state_repository_(player_state_repository),
+metrics_(metrics)
 {}
 
 
@@ -57,6 +59,7 @@ void LoginService::send_login_failed(std::shared_ptr<Session> session, const std
 
 
 void LoginService::handle_login(std::shared_ptr<Session> session, const Message &message) {
+    metrics_.incr_login_req();
     game_server::LoginReq req;
     req.ParseFromString(message.body);
 

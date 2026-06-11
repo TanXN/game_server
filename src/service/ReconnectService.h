@@ -19,7 +19,9 @@ public:
     ReconnectService(PlayerManager& player_manager,
                     RoomManager& room_manager,
                     PlayerStateManager& player_state_manager,
-                    ConnectionManager& connection_manager);
+                    ConnectionManager& connection_manager,
+                    ServerMetrics& metrics
+                    );
 
     void handle_reconnect(std::shared_ptr<Session> session, const Message& message);
 
@@ -34,6 +36,7 @@ private:
     RoomManager& room_manager_;
     PlayerStateManager& player_state_manager_;
     ConnectionManager& connection_manager_;
+    ServerMetrics& metrics_;
 };
 
 

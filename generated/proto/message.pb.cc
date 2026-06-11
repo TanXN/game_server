@@ -165,6 +165,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR HeartbeatReq::HeartbeatReq(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.client_time_ms_)*/int64_t{0}
+  , /*decltype(_impl_.last_rtt_ms_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HeartbeatReqDefaultTypeInternal {
   PROTOBUF_CONSTEXPR HeartbeatReqDefaultTypeInternal()
@@ -352,6 +353,7 @@ const uint32_t TableStruct_proto_2fmessage_2eproto::offsets[] PROTOBUF_SECTION_V
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::game_server::HeartbeatReq, _impl_.client_time_ms_),
+  PROTOBUF_FIELD_OFFSET(::game_server::HeartbeatReq, _impl_.last_rtt_ms_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::game_server::HeartbeatResp, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -413,12 +415,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 63, -1, -1, sizeof(::game_server::ChatNotify)},
   { 72, -1, -1, sizeof(::game_server::ChatResp)},
   { 80, -1, -1, sizeof(::game_server::HeartbeatReq)},
-  { 87, -1, -1, sizeof(::game_server::HeartbeatResp)},
-  { 95, -1, -1, sizeof(::game_server::ReconnectReq)},
-  { 103, -1, -1, sizeof(::game_server::ReconnectResp)},
-  { 113, -1, -1, sizeof(::game_server::RankingReq)},
-  { 120, -1, -1, sizeof(::game_server::RankingItem)},
-  { 128, -1, -1, sizeof(::game_server::RankingResp)},
+  { 88, -1, -1, sizeof(::game_server::HeartbeatResp)},
+  { 96, -1, -1, sizeof(::game_server::ReconnectReq)},
+  { 104, -1, -1, sizeof(::game_server::ReconnectResp)},
+  { 114, -1, -1, sizeof(::game_server::RankingReq)},
+  { 121, -1, -1, sizeof(::game_server::RankingItem)},
+  { 129, -1, -1, sizeof(::game_server::RankingResp)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -454,21 +456,21 @@ const char descriptor_table_protodef_proto_2fmessage_2eproto[] PROTOBUF_SECTION_
   "hatReq\022\016\n\006roomId\030\001 \001(\003\022\014\n\004text\030\002 \001(\t\"<\n\n"
   "ChatNotify\022\016\n\006roomId\030\001 \001(\003\022\020\n\010playerId\030\002"
   " \001(\003\022\014\n\004text\030\003 \001(\t\")\n\010ChatResp\022\014\n\004code\030\001"
-  " \001(\003\022\017\n\007message\030\002 \001(\t\"&\n\014HeartbeatReq\022\026\n"
-  "\016client_time_ms\030\001 \001(\003\"\?\n\rHeartbeatResp\022\026"
-  "\n\016client_time_ms\030\001 \001(\003\022\026\n\016server_time_ms"
-  "\030\002 \001(\003\"0\n\014ReconnectReq\022\021\n\tplayer_id\030\001 \001("
-  "\003\022\r\n\005token\030\002 \001(\t\"R\n\rReconnectResp\022\014\n\004cod"
-  "e\030\001 \001(\003\022\021\n\tplayer_id\030\002 \001(\005\022\017\n\007room_id\030\003 "
-  "\001(\005\022\017\n\007message\030\004 \001(\t\"\033\n\nRankingReq\022\r\n\005to"
-  "p_n\030\001 \001(\003\"/\n\013RankingItem\022\021\n\tplayer_id\030\001 "
-  "\001(\003\022\r\n\005score\030\002 \001(\003\"6\n\013RankingResp\022\'\n\005ite"
-  "ms\030\001 \003(\0132\030.game_server.RankingItemb\006prot"
-  "o3"
+  " \001(\003\022\017\n\007message\030\002 \001(\t\";\n\014HeartbeatReq\022\026\n"
+  "\016client_time_ms\030\001 \001(\003\022\023\n\013last_rtt_ms\030\002 \001"
+  "(\003\"\?\n\rHeartbeatResp\022\026\n\016client_time_ms\030\001 "
+  "\001(\003\022\026\n\016server_time_ms\030\002 \001(\003\"0\n\014Reconnect"
+  "Req\022\021\n\tplayer_id\030\001 \001(\003\022\r\n\005token\030\002 \001(\t\"R\n"
+  "\rReconnectResp\022\014\n\004code\030\001 \001(\003\022\021\n\tplayer_i"
+  "d\030\002 \001(\005\022\017\n\007room_id\030\003 \001(\005\022\017\n\007message\030\004 \001("
+  "\t\"\033\n\nRankingReq\022\r\n\005top_n\030\001 \001(\003\"/\n\013Rankin"
+  "gItem\022\021\n\tplayer_id\030\001 \001(\003\022\r\n\005score\030\002 \001(\003\""
+  "6\n\013RankingResp\022\'\n\005items\030\001 \003(\0132\030.game_ser"
+  "ver.RankingItemb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_proto_2fmessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_proto_2fmessage_2eproto = {
-    false, false, 882, descriptor_table_protodef_proto_2fmessage_2eproto,
+    false, false, 903, descriptor_table_protodef_proto_2fmessage_2eproto,
     "proto/message.proto",
     &descriptor_table_proto_2fmessage_2eproto_once, nullptr, 0, 17,
     schemas, file_default_instances, TableStruct_proto_2fmessage_2eproto::offsets,
@@ -2775,10 +2777,13 @@ HeartbeatReq::HeartbeatReq(const HeartbeatReq& from)
   HeartbeatReq* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.client_time_ms_){}
+    , decltype(_impl_.last_rtt_ms_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.client_time_ms_ = from._impl_.client_time_ms_;
+  ::memcpy(&_impl_.client_time_ms_, &from._impl_.client_time_ms_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.last_rtt_ms_) -
+    reinterpret_cast<char*>(&_impl_.client_time_ms_)) + sizeof(_impl_.last_rtt_ms_));
   // @@protoc_insertion_point(copy_constructor:game_server.HeartbeatReq)
 }
 
@@ -2788,6 +2793,7 @@ inline void HeartbeatReq::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.client_time_ms_){int64_t{0}}
+    , decltype(_impl_.last_rtt_ms_){int64_t{0}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2815,7 +2821,9 @@ void HeartbeatReq::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.client_time_ms_ = int64_t{0};
+  ::memset(&_impl_.client_time_ms_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.last_rtt_ms_) -
+      reinterpret_cast<char*>(&_impl_.client_time_ms_)) + sizeof(_impl_.last_rtt_ms_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2829,6 +2837,14 @@ const char* HeartbeatReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.client_time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 last_rtt_ms = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.last_rtt_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2868,6 +2884,12 @@ uint8_t* HeartbeatReq::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_client_time_ms(), target);
   }
 
+  // int64 last_rtt_ms = 2;
+  if (this->_internal_last_rtt_ms() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_last_rtt_ms(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2887,6 +2909,11 @@ size_t HeartbeatReq::ByteSizeLong() const {
   // int64 client_time_ms = 1;
   if (this->_internal_client_time_ms() != 0) {
     total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_client_time_ms());
+  }
+
+  // int64 last_rtt_ms = 2;
+  if (this->_internal_last_rtt_ms() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_last_rtt_ms());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -2910,6 +2937,9 @@ void HeartbeatReq::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   if (from._internal_client_time_ms() != 0) {
     _this->_internal_set_client_time_ms(from._internal_client_time_ms());
   }
+  if (from._internal_last_rtt_ms() != 0) {
+    _this->_internal_set_last_rtt_ms(from._internal_last_rtt_ms());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2927,7 +2957,12 @@ bool HeartbeatReq::IsInitialized() const {
 void HeartbeatReq::InternalSwap(HeartbeatReq* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.client_time_ms_, other->_impl_.client_time_ms_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(HeartbeatReq, _impl_.last_rtt_ms_)
+      + sizeof(HeartbeatReq::_impl_.last_rtt_ms_)
+      - PROTOBUF_FIELD_OFFSET(HeartbeatReq, _impl_.client_time_ms_)>(
+          reinterpret_cast<char*>(&_impl_.client_time_ms_),
+          reinterpret_cast<char*>(&other->_impl_.client_time_ms_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HeartbeatReq::GetMetadata() const {

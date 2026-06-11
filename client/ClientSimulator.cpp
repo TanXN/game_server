@@ -105,6 +105,9 @@ void ClientSimulator::handle_message(Message& msg) {
         case MessageId::HeartbeatResp: {
             game_server::HeartbeatResp resp;
             resp.ParseFromString(msg.body);
+            long send_time_ms = resp.client_time_ms();
+            auto now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+            rtt_ms_ = now - send_time_ms;
             std::cout << "[heartbeat] client=" << resp.client_time_ms()
             << " server=" << resp.server_time_ms() << std::endl;
             break;
@@ -232,6 +235,7 @@ void ClientSimulator::send_heartbeat() {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
     auto mills = duration.count();
     req.set_client_time_ms(mills);
+    req.set_last_rtt_ms(rtt_ms_);
 
     Message msg;
     msg.msg_id = MessageId::HeartbeatReq;

@@ -19,13 +19,16 @@ void RankingService::send_ranking_resp(std::shared_ptr<Session> session) {
 
 }
 
-RankingService::RankingService(PlayerStateRepository &player_state_repo)
-    :player_state_repo_(player_state_repo)
+RankingService::RankingService(PlayerStateRepository &player_state_repo,
+                                ServerMetrics& server_metrics
+)
+    :player_state_repo_(player_state_repo), metrics_(server_metrics)
 {
 
 }
 
 void RankingService::handle_ranking_req(std::shared_ptr<Session> session, const Message &message) {
+    metrics_.incr_ranking_req();
     game_server::RankingReq req;
     req.ParseFromString(message.body);
     int top_n = req.top_n();

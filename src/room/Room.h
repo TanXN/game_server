@@ -10,6 +10,9 @@
 #include "player/PlayerManager.h"
 #include "player/PlayerRuntimeState.h"
 
+
+class PlayerManager;
+
 class Room {
 public:
     Room(int room_id, std::vector<int> player_ids, PlayerManager& player_manager);
@@ -47,6 +50,7 @@ private:
 
     PlayerManager& player_manager_;
 
+    bool enable_room_tick_log_ = false;
 
     int tick_count_ = 0;
 };

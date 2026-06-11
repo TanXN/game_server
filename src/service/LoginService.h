@@ -21,7 +21,8 @@ class playerManager;
 class LoginService {
 public:
     explicit LoginService(PlayerManager& player_manager, ConnectionManager& connection_manager,
-        PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository);
+        PlayerStateManager& player_state_manager,PlayerStateRepository& player_state_repository,
+        ServerMetrics& metrics);
 
     void handle_login(std::shared_ptr<Session> session, const Message& message);
 
@@ -41,6 +42,8 @@ private:
     ConnectionManager& connection_manager_;
     PlayerStateManager& player_state_manager_;
     PlayerStateRepository& player_state_repository_;
+
+    ServerMetrics& metrics_;
 
     std::atomic<int> next_player_id_{10000};
 

@@ -7,9 +7,11 @@
 #include "MessageId.h"
 #include "proto/message.pb.h"
 
-ChatService::ChatService(RoomManager &room_manager, RankingService &ranking_service)
+ChatService::ChatService(RoomManager &room_manager, RankingService &ranking_service,
+    ServerMetrics &metrics)
     :room_manager_(room_manager),
-    ranking_service_(ranking_service)
+    ranking_service_(ranking_service),
+    metrics_(metrics)
 {}
 
 void ChatService::send_chat_failed(std::shared_ptr<Session> session, const std::string &reason) {
@@ -25,6 +27,7 @@ void ChatService::send_chat_failed(std::shared_ptr<Session> session, const std::
 }
 
 void ChatService::handle_chat(std::shared_ptr<Session> session, const Message &message) {
+    metrics_.incr_chat_req();
     game_server::ChatReq req;
     req.ParseFromString(message.body);
 

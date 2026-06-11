@@ -10,7 +10,7 @@
 
 class ChatService {
 public:
-    explicit ChatService(RoomManager& room_manager, RankingService& ranking_service);
+    explicit ChatService(RoomManager& room_manager, RankingService& ranking_service, ServerMetrics& metrics);
 
     void handle_chat(std::shared_ptr<Session> session, const Message& message);
 
@@ -19,6 +19,7 @@ private:
 
     RoomManager& room_manager_;
     RankingService& ranking_service_;
+    ServerMetrics& metrics_;
 };
 
 

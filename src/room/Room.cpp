@@ -53,7 +53,7 @@ std::size_t Room::player_count() const {
 void Room::tick() {
     ++tick_count_;
 
-    if (tick_count_ % 50 == 0) {
+    if (enable_room_tick_log_  && tick_count_ % 50 == 0) {
         int online = 0, offline = 0;
         for (auto it = player_states_.begin(); it != player_states_.end(); it++) {
             if (it->second.conn_state == PlayerConnState::Online) {

@@ -21,6 +21,11 @@ void MetricsReporter::start() {
 }
 
 void MetricsReporter::report_once() const{
+    metrics_.set_connection_count(connection_manager_.connection_count());
+    metrics_.set_match_queue_size(match_queue_.size());
+    metrics_.set_online_players(player_manager_.online_count());
+    metrics_.set_room_count(room_manager_.room_count());
+
     std::cout << "[Metrics] online=" << metrics_.online_players()
     << " conn=" << metrics_.connection_count()
     << " room=" << metrics_.room_count()
@@ -35,7 +40,7 @@ void MetricsReporter::report_once() const{
     << " heartbeat=" << metrics_.heartbeat_req_count()
     << " ranking=" << metrics_.ranking_req_count()
     << " reconnect=" << metrics_.reconnect_req_count()
-    << " avg_heartbeat=" << metrics_.avg_heartbeat_rtt_ms() << "ms"
+    << " avg_heartbeat_rtt=" << metrics_.avg_heartbeat_rtt_ms() << " ms"
     << std::endl;
 }
 

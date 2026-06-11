@@ -5,7 +5,13 @@
 #include "ServerMetrics.h"
 
 double ServerMetrics::avg_heartbeat_rtt_ms() const {
-    return static_cast<double>(total_heartbeat_rtt_ms_) / heartbeat_rtt_count_;
+    int64_t count = heartbeat_rtt_count_.load(std::memory_order_relaxed);
+    if (count <= 0) {
+        return 0.0;
+    }
+    int64_t total = total_heartbeat_rtt_ms_.load(std::memory_order_relaxed);
+
+    return static_cast<double>(total) / count;
 }
 
 int64_t ServerMetrics::calc_recv_qps() {
@@ -97,7 +103,7 @@ void ServerMetrics::record_heartbeat(int64_t rtt_ms) {
     if (rtt_ms < 0) {
         return ;
     }
-
+    heartbeat_rtt_count_.fetch_add(1, std::memory_order_relaxed);
     total_heartbeat_rtt_ms_.fetch_add(rtt_ms, std::memory_order_relaxed);
 }
 

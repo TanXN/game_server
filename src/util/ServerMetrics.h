@@ -58,7 +58,6 @@ public:
     // =========================
 
     void record_heartbeat(int64_t rtt_ms);
-
     int64_t total_heartbeat_rtt_ms() const;
     int64_t heartbeat_rtt_count() const;
     double avg_heartbeat_rtt_ms() const;

@@ -31,6 +31,8 @@ add_executable(game_server
         src/service/RankingService.cpp
         src/player/MemoryPlayerStateRepository.cpp
         src/player/PlayerStateRepository.h
+        src/util/MetricsReporter.cpp
+        src/util/ServerMetrics.cpp
 )
 
 target_include_directories(
@@ -56,11 +58,11 @@ target_link_libraries(
 add_executable(
         game_client
         client/main.cpp
-        src/net/Session.cpp
         src/net/MessageCodec.cpp
-        src/net/MessageDispatcher.cpp
-        generated/proto/message.pb.cc
+
         client/ClientSimulator.cpp
+        generated/proto/message.pb.cc
+
 
 )
 

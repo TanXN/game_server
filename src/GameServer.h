@@ -50,6 +50,9 @@ private:
     PlayerStateManager player_state_manager_;
     MemoryPlayerStateRepository player_state_repository_;
 
+    ServerMetrics metrics_;
+    MetricsReporter metrics_reporter_;
+
     LoginService login_service_;
     MatchService match_service_;
     RankingService ranking_service_;
@@ -62,8 +65,7 @@ private:
     boost::asio::steady_timer heartbeat_timer_;
     boost::asio::steady_timer check_reconnect_timer_;
 
-    ServerMetrics metrics_;
-    MetricsReporter metrics_reporter_;
+
 
 };
 

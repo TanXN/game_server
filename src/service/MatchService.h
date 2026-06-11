@@ -14,7 +14,7 @@ class MatchQueue;
 
 class MatchService {
 public:
-    explicit MatchService(MatchQueue& match_queue, RoomManager& room_manager);
+    explicit MatchService(MatchQueue& match_queue, RoomManager& room_manager, ServerMetrics& server_metrics);
 
     void handle_match(std::shared_ptr<Session> session, const Message& message);
 
@@ -28,6 +28,7 @@ private:
     MatchQueue& match_queue_;
 
     RoomManager& room_manager_;
+    ServerMetrics& metrics_;
 };
 
 

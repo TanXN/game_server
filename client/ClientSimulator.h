@@ -48,6 +48,7 @@ private:
     int room_id_;
     bool heart_beat_enable_ = true;
     bool enable_chat = false;
+    long rtt_ms_ = -1;
     std::string token_;
 
     std::array<char, 4096> read_buffer_{};

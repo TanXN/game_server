@@ -11,9 +11,11 @@
 
 class HeartbeatService {
 public:
+    HeartbeatService(ServerMetrics& metrics);
     void handle_heartbeat(std::shared_ptr<Session> session, const Message& message);
 
 private:
+    ServerMetrics& metrics_;
 };
 
 

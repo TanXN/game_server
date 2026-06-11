@@ -6,11 +6,15 @@
 #define GAME_SERVER_METRICSREPORTER_H
 #include <boost/asio.hpp>
 
-#include "ConnectionManager.h"
 #include "ServerMetrics.h"
 #include "match/MatchQueue.h"
 #include "player/PlayerManager.h"
 #include "room/RoomManager.h"
+#include "net/ConnectionManager.h"
+
+class RoomManager;
+class PlayerManager;
+class ConnectionManager;
 
 class MetricsReporter {
 public:

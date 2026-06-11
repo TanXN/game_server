@@ -13,7 +13,9 @@
 
 class RankingService {
 public:
-    explicit RankingService(PlayerStateRepository& player_state_repo);
+    explicit RankingService(PlayerStateRepository& player_state_repo,
+                            ServerMetrics& server_metrics
+    );
 
     void handle_ranking_req(std::shared_ptr<Session> session, const Message& message);
 
@@ -23,6 +25,7 @@ private:
     void send_ranking_resp(std::shared_ptr<Session> session);
 
     PlayerStateRepository& player_state_repo_;
+    ServerMetrics& metrics_;
 
 };
 

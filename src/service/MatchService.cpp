@@ -10,11 +10,12 @@
 #include "proto/message.pb.h"
 #include "room/RoomManager.h"
 
-MatchService::MatchService(MatchQueue &match_queue, RoomManager &room_manager)
-    : match_queue_(match_queue), room_manager_(room_manager) {
+MatchService::MatchService(MatchQueue &match_queue, RoomManager &room_manager, ServerMetrics &server_metrics)
+    : match_queue_(match_queue), room_manager_(room_manager), metrics_(server_metrics) {
 }
 
 void MatchService::handle_match(std::shared_ptr<Session> session, const Message &message) {
+    metrics_.incr_match_req();
     game_server::MatchReq req;
     req.ParseFromString(message.body);
     int player_id = req.playerid();

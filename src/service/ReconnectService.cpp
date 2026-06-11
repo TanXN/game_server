@@ -12,11 +12,14 @@
 ReconnectService::ReconnectService(PlayerManager &player_manager,
                                    RoomManager &room_manager,
                                    PlayerStateManager &player_state_manager,
-                                   ConnectionManager &connection_manager)
+                                   ConnectionManager &connection_manager,
+                                   ServerMetrics &metrics
+                                   )
         :player_manager_(player_manager),
         room_manager_(room_manager),
         player_state_manager_(player_state_manager),
-        connection_manager_(connection_manager)
+        connection_manager_(connection_manager),
+        metrics_(metrics)
 {
 
 }
@@ -48,6 +51,7 @@ void ReconnectService::send_reconnect_failed(std::shared_ptr<Session> session, s
 }
 
 void ReconnectService::handle_reconnect(std::shared_ptr<Session> session, const Message &message) {
+    metrics_.incr_reconnect_req();
     game_server::ReconnectReq req;
     req.ParseFromString(message.body);
 
