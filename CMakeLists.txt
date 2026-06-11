@@ -39,6 +39,8 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/net
         ${CMAKE_SOURCE_DIR}/generated
+        ${CMAKE_SOURCE_DIR}/util
+
 
 )
 

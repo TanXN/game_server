@@ -21,7 +21,7 @@
 #include "service/LoginService.h"
 #include "service/MatchService.h"
 #include "service/ReconnectService.h"
-
+#include "util/MetricsReporter.h"
 using boost::asio::ip::tcp;
 
 class GameServer {
@@ -61,6 +61,9 @@ private:
     boost::asio::steady_timer print_timer_;
     boost::asio::steady_timer heartbeat_timer_;
     boost::asio::steady_timer check_reconnect_timer_;
+
+    ServerMetrics metrics_;
+    MetricsReporter metrics_reporter_;
 
 };
 

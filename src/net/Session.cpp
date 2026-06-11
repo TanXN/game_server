@@ -38,6 +38,9 @@ void Session::parse_packet() {
         MessageCodec::DecodeStatus status = MessageCodec::try_decode(recv_buffer_, msg, &ec);
         if (status == MessageCodec::DecodeStatus::Success) {
             update_last_active_time(std::chrono::steady_clock::now());
+
+            server_metrics_.incr_recv_packet();
+
             dispatcher_.dispatch(shared_from_this(), msg);
         }else if(status == MessageCodec::DecodeStatus::NeedMore) {
             break;
@@ -68,8 +71,10 @@ void Session::do_write() {
         });
 }
 
-Session::Session(tcp::socket socket, MessageDispatcher &dispatcher)
-    : dispatcher_(dispatcher), socket_(std::move(socket)) {}
+Session::Session(tcp::socket socket, MessageDispatcher &dispatcher,
+    ServerMetrics &server_metrics)
+    : socket_(std::move(socket)), dispatcher_(dispatcher), server_metrics_(server_metrics)
+{}
 
 
 void Session::close() {
@@ -99,6 +104,7 @@ void Session::send(const Message &msg) {
     std::vector<char> packet = MessageCodec::encode(msg);
     bool empty = write_queue_.empty();
     write_queue_.push_back(packet);
+    server_metrics_.incr_send_packet();
     if (empty) {
         do_write();
     }

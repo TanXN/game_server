@@ -9,7 +9,7 @@
 #include <atomic>
 class ServerMetrics {
 public:
-    ServerMetrics();
+    ServerMetrics() = default;
 
     // =========================
     // 连接 / 在线状态

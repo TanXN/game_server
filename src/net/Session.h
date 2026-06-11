@@ -11,6 +11,7 @@
 
 #include "Message.h"
 #include "MessageDispatcher.h"
+#include "util/MetricsReporter.h"
 
 
 using boost::asio::ip::tcp;
@@ -22,7 +23,7 @@ public:
 
     using Callback = std::function<void(std::shared_ptr<Session>)>;
 
-    Session(tcp::socket socket, MessageDispatcher& dispatcher);
+    Session(tcp::socket socket, MessageDispatcher& dispatcher, ServerMetrics& server_metrics);
 
     void start();
     void send(const Message& msg);
@@ -60,6 +61,7 @@ private:
 
     void parse_packet();
 
+    ServerMetrics& server_metrics_;
 
     bool closed_ = false;
 

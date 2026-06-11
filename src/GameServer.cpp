@@ -21,7 +21,11 @@ GameServer::GameServer()
     timer_(io_),
     print_timer_(io_),
     heartbeat_timer_(io_),
-    check_reconnect_timer_(io_)
+    check_reconnect_timer_(io_),
+
+    metrics_reporter_(io_, metrics_, player_manager_, connection_manager_,
+        match_queue_, room_manager_
+    )
 {
 }
 
@@ -86,7 +90,7 @@ void GameServer::start() {
     start_tick();
     start_timeout_check();
     start_reconnect_timeout_check();
-
+    metrics_reporter_.start();
     print_stat();
 
     io_.run();
@@ -103,7 +107,7 @@ void GameServer::do_accept(tcp::acceptor &acceptor, MessageDispatcher &dispatche
             std::cout << "accept error: " << ec.message() << std::endl;
             return ;
         }
-        auto session = std::make_shared<Session>(std::move(socket), dispatcher);
+        auto session = std::make_shared<Session>(std::move(socket), dispatcher, metrics_reporter_);
 
         session->set_callback([this](std::shared_ptr<Session> session) {
             match_queue_.leave(session->player_id());
